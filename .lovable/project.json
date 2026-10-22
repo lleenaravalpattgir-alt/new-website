@@ -1,0 +1,13 @@
+{
+  "name": "Ryze Advisory",
+  "description": "Fractional executive leadership, business funding portal, and insights CMS platform",
+  "schemaVersion": 1,
+  "template": "tanstack_start_ts_2026-05-29",
+  "framework": "tanstack-start",
+  "bundler": "vite",
+  "ui": "shadcn",
+  "entry": "src/server.ts",
+  "supabase": {
+    "projectId": "naazhbadfhiacemiyjcg"
+  }
+}

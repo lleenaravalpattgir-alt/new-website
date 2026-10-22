@@ -1,0 +1,26 @@
+# RYZE Advisory
+
+> RYZE Advisory is a multi-disciplinary consultancy that turns strategy into shipped, revenue-grade systems across four pillars: AI & Automation, Brand Advisory, HR Consultancy, and Talent Acquisition.
+
+We pair executive-grade strategy with senior consultants and engineers who ship — so initiatives move from slideware to revenue. Engagements are scoped around measurable business outcomes, not pilots.
+
+## Pillars
+
+- **AI & Automation** — Outbound engines, agentic workflows, operational AI agents, client-facing AI, research & intelligence, GEO/AI SEO, and content automation.
+- **Brand Advisory** — Corporate identity systems, go-to-market positioning, digital experience (UX/UI), and brand audits.
+- **HR Consultancy** — Performance management, organizational design, compliance & risk, and employee retention strategy.
+- **Talent Acquisition** — Executive search, technical team assembly, volume hiring systems, and employer brand strategy.
+
+## Key Pages
+
+- [Home](https://ryzeadvisory.co/): Multi-pillar overview and featured services.
+- [Services](https://ryzeadvisory.co/services): Full service architecture across all four pillars.
+- [About](https://ryzeadvisory.co/about): How RYZE operates and our engagement model.
+- [Insights](https://ryzeadvisory.co/blog): Field notes from senior consultants on AI strategy and execution.
+- [Contact](https://ryzeadvisory.co/contact): Book a 30-minute strategy call with a senior consultant.
+- [Sitemap](https://ryzeadvisory.co/sitemap.xml): Machine-readable list of all indexable URLs.
+
+## Contact
+
+- Website: https://ryzeadvisory.co
+- Strategy call: https://ryzeadvisory.co/contact

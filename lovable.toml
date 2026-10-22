@@ -1,0 +1,19 @@
+# Lovable Configuration for Ryze Advisory
+[project]
+name = "ryze-advisory"
+framework = "tanstack-start"
+template = "tanstack_start_ts_2026-05-29"
+version = "1.0.0"
+
+[supabase]
+projectId = "naazhbadfhiacemiyjcg"
+
+[server]
+port = 8080
+host = "0.0.0.0"
+entry = "src/server.ts"
+
+[scripts]
+dev = "vite dev"
+build = "vite build"
+preview = "vite preview"

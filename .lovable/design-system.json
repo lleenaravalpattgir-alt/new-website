@@ -1,0 +1,33 @@
+{
+  "name": "Ryze Advisory Design System",
+  "version": "1.0.0",
+  "colors": {
+    "primary": "#0B1F3B",
+    "primaryDark": "#08172D",
+    "primaryLight": "#163866",
+    "accentGold": "#D4A238",
+    "goldDark": "#B8860B",
+    "goldLight": "#F3E5AB",
+    "background": "#F8FBFF",
+    "surface": "#FFFFFF",
+    "border": "#E2E8F0",
+    "textPrimary": "#0F1E2F",
+    "textSecondary": "#53637C"
+  },
+  "typography": {
+    "headingFont": "Plus Jakarta Sans, sans-serif",
+    "bodyFont": "Inter, sans-serif",
+    "monoFont": "JetBrains Mono, monospace"
+  },
+  "components": {
+    "button": {
+      "gold": "btn-gold",
+      "navy": "btn-navy",
+      "outline": "btn-outline"
+    },
+    "cards": {
+      "default": "service-card",
+      "interactive": "rounded-xl border border-[#E2E8F0] bg-white p-6 transition-all hover:border-[#D4A238]"
+    }
+  }
+}

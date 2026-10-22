@@ -1,0 +1,477 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Rise Advisory Theme Tokens (Exact from Prompt Specification) */
+  --color-primary-navy: var(--primary-navy);
+  --color-dark-navy: var(--dark-navy);
+  --color-navy-tint: var(--navy-tint);
+  --color-gold: var(--gold-accent);
+  --color-gold-accent: var(--gold-accent);
+  --color-dark-gold: var(--dark-gold);
+  --color-white: var(--pure-white);
+  --color-light-bg: var(--light-bg);
+  --color-section-light: var(--section-light);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-label: var(--text-muted);
+  --color-border-color: var(--border-color);
+  --color-success: var(--success);
+  --color-error: var(--error);
+
+  /* Convenience aliases */
+  --color-navy: var(--primary-navy);
+  --color-navy-deep: var(--dark-navy);
+  --color-navy-accent: var(--navy-tint);
+  --color-whatsapp: var(--whatsapp);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --radius: 0.5rem;
+  --radius-card: 12px;
+  --radius-button: 6px;
+  --container-width: 1200px;
+
+  /* 2. Global Colour Theme — Single Source of Truth */
+  --primary-navy: #0B1F3B;          /* Primary Navy */
+  --dark-navy: #0E2A4D;             /* Dark Navy */
+  --navy-tint: #132F55;             /* Navy Tint */
+  --gold-accent: #D4A238;           /* Gold Accent */
+  --dark-gold: #B8860B;             /* Dark Gold */
+  --pure-white: #FFFFFF;            /* Pure White */
+  --light-bg: #F8FBFF;              /* Light Background */
+  --section-light: #EEF4FA;         /* Section Light */
+  --text-primary: #0F1E2F;          /* Primary Text */
+  --text-secondary: #53637C;        /* Secondary Text */
+  --text-muted: #6B7A99;            /* Muted Text / Labels */
+  --text-light: #D1D7DF;            /* Light Text on Dark Navy */
+  --border-color: #E2E8F0;          /* Border */
+  --success: #10B981;               /* Success */
+  --error: #EF4444;                 /* Error */
+  --whatsapp: #25D366;              /* WhatsApp green */
+
+  /* Semantic mappings */
+  --background: #F8FBFF;
+  --foreground: #0F1E2F;
+  --card: #FFFFFF;
+  --card-foreground: #0F1E2F;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F1E2F;
+  --primary: #D4A238;
+  --primary-foreground: #0F1E2F;
+  --secondary: #EEF4FA;
+  --secondary-foreground: #0F1E2F;
+  --muted: #EEF4FA;
+  --muted-foreground: #53637C;
+  --accent: #D4A238;
+  --accent-foreground: #0F1E2F;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #D4A238;
+
+  /* Typography */
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* 3. Universal Gradients (Strictly White Accents, Never Gold Glows) */
+  --gradient-hero: linear-gradient(115deg, #0B1F3B 0%, #132F55 48%, #FFFFFF 100%);
+  --gradient-section: linear-gradient(120deg, #132F55 0%, #0E2A4D 55%, #FFFFFF 100%);
+  --gradient-white-accent: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.10) 55%, rgba(255, 255, 255, 0.95) 100%);
+  --gradient-light: linear-gradient(180deg, #FFFFFF 0%, #F8FBFF 100%);
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px rgba(15, 30, 47, 0.05);
+  --shadow-service-card: 0 4px 20px rgba(15, 30, 47, 0.05);
+  --shadow-dark-card: 0 8px 24px rgba(11, 31, 59, 0.12);
+  --shadow-gold: 0 4px 14px rgba(212, 162, 56, 0.35);
+  --shadow-elegant: 0 20px 60px -20px rgba(11, 31, 59, 0.14);
+}
+
+.dark {
+  --background: #0B1F3B;
+  --foreground: #D1D7DF;
+  --card: #132F55;
+  --card-foreground: #FFFFFF;
+  --popover: #132F55;
+  --popover-foreground: #FFFFFF;
+  --primary: #D4A238;
+  --primary-foreground: #0F1E2F;
+  --secondary: #0E2A4D;
+  --secondary-foreground: #FFFFFF;
+  --muted: #0E2A4D;
+  --muted-foreground: #A7B3CB;
+  --accent: #D4A238;
+  --accent-foreground: #0F1E2F;
+  --border: rgba(212, 162, 56, 0.2);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #D4A238;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.005em;
+    word-spacing: normal;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    word-spacing: normal;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .bg-hero-gradient { background: var(--gradient-hero); }
+  .bg-section-gradient { background: var(--gradient-section); }
+  .bg-light-gradient { background: var(--gradient-light); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .shadow-service { box-shadow: var(--shadow-service-card); }
+  .shadow-dark { box-shadow: var(--shadow-dark-card); }
+
+  /* Diagonal texture for Navy backgrounds */
+  .navy-diagonal-texture {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+  }
+
+  .arrow-bg {
+    background-image:
+      linear-gradient(135deg, transparent 49.5%, rgba(212, 162, 56, 0.06) 49.5%, rgba(212, 162, 56, 0.06) 50.5%, transparent 50.5%);
+    background-size: 60px 60px;
+  }
+
+  /* 7. Universal Button System */
+  /* Primary Button: Gold background #D4A238, Navy text #0F1E2F, Dark Gold hover #B8860B, Rounded corners */
+  .btn-gold, .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #D4A238;
+    color: #0F1E2F;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-button);
+    box-shadow: 0 4px 14px rgba(212, 162, 56, 0.35);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+  }
+  .btn-gold:hover, .btn-primary:hover {
+    background-color: #B8860B;
+    color: #0F1E2F;
+    box-shadow: 0 6px 20px rgba(212, 162, 56, 0.5);
+    transform: translateY(-1px);
+  }
+  .btn-gold:focus-visible, .btn-primary:focus-visible {
+    box-shadow: 0 0 0 3px rgba(212, 162, 56, 0.4);
+  }
+
+  /* Secondary Button: Navy background #132F55, White text, Dark Navy hover #0E2A4D */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #132F55;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+  }
+  .btn-secondary:hover {
+    background-color: #0E2A4D;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+  }
+  .btn-secondary:focus-visible {
+    box-shadow: 0 0 0 3px rgba(19, 47, 85, 0.4);
+  }
+
+  /* Outline Button: Transparent/White background, Gold border, Navy text */
+  .btn-outline, .btn-gold-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: #0B1F3B;
+    border: 1.5px solid #D4A238;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+  }
+  .btn-outline:hover, .btn-gold-outline:hover {
+    background-color: rgba(212, 162, 56, 0.1);
+    color: #0B1F3B;
+    transform: translateY(-1px);
+  }
+
+  .btn-navy-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: #0B1F3B;
+    border: 1.5px solid #0B1F3B;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-navy-outline:hover {
+    background-color: #0B1F3B;
+    border-color: #0B1F3B;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+  }
+
+  /* Ghost Button: Transparent, Navy text on light, White on dark */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #0F1E2F;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+  }
+  .btn-ghost:hover {
+    background-color: rgba(15, 30, 47, 0.05);
+  }
+
+  .btn-ghost-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #FFFFFF;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+  }
+  .btn-ghost-dark:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* 8. Universal Card System */
+  /* Light service card: White background, Border #E2E8F0, Navy heading, Secondary text, Small navy icon container with gold icon, Subtle shadow, Gold border/shadow on hover */
+  .service-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 20px rgba(15, 30, 47, 0.05);
+    border-radius: var(--radius-card);
+    transition: all 0.25s ease-in-out;
+  }
+  .service-card:hover {
+    border-color: #D4A238;
+    box-shadow: 0 10px 25px -5px rgba(11, 31, 59, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Dark feature card: Navy Tint #132F55, White heading and body text, Gold icon or metric, Restrained shadow */
+  .dark-feature-card, .card-dark {
+    background-color: #132F55;
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(11, 31, 59, 0.12);
+    border-radius: var(--radius-card);
+    transition: all 0.25s ease-in-out;
+  }
+  .dark-feature-card:hover, .card-dark:hover {
+    border-color: #D4A238;
+    box-shadow: 0 12px 30px -5px rgba(11, 31, 59, 0.25);
+    transform: translateY(-2px);
+  }
+
+  /* Light feature card: Background #F8FBFF, Navy text, Gold accent, Subtle border */
+  .feature-card {
+    background-color: #F8FBFF;
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-card);
+    transition: all 0.25s ease-in-out;
+  }
+  .feature-card:hover {
+    border-color: #D4A238;
+    box-shadow: 0 6px 20px rgba(11, 31, 59, 0.06);
+  }
+
+  /* Process card: White or #EEF4FA background, Navy step number, Gold line or connector, Navy heading and readable supporting text */
+  .process-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-card);
+    box-shadow: 0 4px 20px rgba(15, 30, 47, 0.04);
+    transition: all 0.25s ease-in-out;
+  }
+  .process-card:hover {
+    border-color: #D4A238;
+    box-shadow: 0 8px 24px -4px rgba(11, 31, 59, 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Executive Card (for interactive dashboards / hero displays) */
+  .card-executive {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 12px 36px -10px rgba(11, 31, 59, 0.1), 0 0 1px 1px rgba(11, 31, 59, 0.04);
+    border-radius: var(--radius-card);
+    color: #0F1E2F;
+    transition: all 0.25s ease-in-out;
+  }
+  .card-executive:hover {
+    border-color: #D4A238;
+    box-shadow: 0 16px 40px -8px rgba(11, 31, 59, 0.14);
+  }
+
+  /* Navy Icon Container with Gold Icon */
+  .icon-container-navy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.625rem;
+    background-color: #0B1F3B;
+    color: #D4A238;
+    border: 1px solid rgba(212, 162, 56, 0.25);
+    flex-shrink: 0;
+  }
+
+  /* Badge Gold */
+  .badge-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: rgba(212, 162, 56, 0.12);
+    border: 1px solid rgba(212, 162, 56, 0.3);
+    color: #B8860B;
+  }
+
+  /* Badge Navy (for dark sections) */
+  .badge-navy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(212, 162, 56, 0.4);
+    color: #D4A238;
+  }
+
+  /* Hide scrollbar utility for sleek tab navigations */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+}
+
+/* Global unlayered overrides for no-scrollbar */
+.no-scrollbar,
+[data-no-scrollbar] {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+.no-scrollbar::-webkit-scrollbar,
+[data-no-scrollbar]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
