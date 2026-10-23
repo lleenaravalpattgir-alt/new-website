@@ -43,12 +43,19 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 // Setting s-maxage instructs Cloudflare to cache the SSR HTML at the edge PoP
 // and serve subsequent requests without invoking the Worker at all.
 //
+// In addition, we integrate with Cloudflare Workers Cache API (caches.default)
+// directly inside the Worker entry to ensure cached responses are returned
+// at edge PoP speed (<100ms TTFB) even when Cloudflare Edge HTML caching rules
+// require Origin Cache API interaction.
+//
 // Strategy:
-//   s-maxage=3600                → Cloudflare CDN caches for 1 hour
-//   stale-while-revalidate=86400 → Serve stale while revalidating for 24 h
-//   max-age=0                    → Browsers always re-validate (no browser cache)
-//   CDN-Cache-Control            → Cloudflare-specific override (takes precedence)
-//   Vary: Accept-Encoding        → Ensure Cloudflare stores the correct encoding
+//   s-maxage=86400               → Cloudflare CDN caches for 24 hours
+//   stale-while-revalidate=604800→ Serve stale while revalidating for 7 days
+//   max-age=0                    → Browsers re-validate with edge cache
+//   Cloudflare-CDN-Cache-Control → Cloudflare-specific edge override
+//   CDN-Cache-Control            → Downstream CDN override
+//   Vary: Accept-Encoding        → Ensure Cloudflare stores correct compression variant
+//   caches.default               → Native Cloudflare Worker Cache API for instant edge HIT
 //
 // Pages explicitly excluded (no CDN cache):
 //   /admin/*     — authenticated admin routes
@@ -77,6 +84,8 @@ const PUBLIC_CACHE_PREFIXES = [
   "/pricing",
   "/privacy-policy",
   "/terms",
+  "/terms-and-conditions",
+  "/terms-of-use",
   "/disclaimer",
   "/business-funding",
   "/founder",
@@ -100,9 +109,45 @@ function isPublicCacheable(pathname: string, method?: string): boolean {
   ) {
     return false;
   }
-  // Cache the home page and all known public content prefixes
-  if (pathname === "/" || pathname === "") return true;
-  return PUBLIC_CACHE_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  // Normalize path without trailing slash (except root)
+  const normalized = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  if (normalized === "/" || normalized === "") return true;
+  return PUBLIC_CACHE_PREFIXES.some((prefix) => normalized.startsWith(prefix));
+}
+
+/** Construct a normalized cache key URL that strips tracking/marketing query params. */
+function getNormalizedCacheKey(request: Request): Request {
+  try {
+    const url = new URL(request.url);
+    const searchParams = url.searchParams;
+    const trackingParams = [
+      "utm_source",
+      "utm_medium",
+      "utm_campaign",
+      "utm_term",
+      "utm_content",
+      "gclid",
+      "fbclid",
+      "msclkid",
+      "ref",
+    ];
+    let modified = false;
+    for (const param of trackingParams) {
+      if (searchParams.has(param)) {
+        searchParams.delete(param);
+        modified = true;
+      }
+    }
+    if (modified) {
+      url.search = searchParams.toString();
+    }
+    return new Request(url.toString(), {
+      method: "GET",
+      headers: request.headers,
+    });
+  } catch {
+    return request;
+  }
 }
 
 /** Inject Cloudflare-aware Cache-Control headers into a successful SSR response. */
@@ -144,14 +189,61 @@ function withEdgeCache(response: Response, pathname: string, method?: string): R
   });
 }
 
+type CloudflareCache = {
+  match: (request: Request | string) => Promise<Response | undefined>;
+  put: (request: Request | string, response: Response) => Promise<void>;
+};
+
+function getCloudflareCache(): CloudflareCache | undefined {
+  const g = globalThis as unknown as { caches?: { default?: CloudflareCache } };
+  return g.caches?.default;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const { pathname } = new URL(request.url);
+    const method = request.method;
+    const cacheable = isPublicCacheable(pathname, method);
+    const cfCache = cacheable ? getCloudflareCache() : undefined;
+    const cacheKey = cfCache ? getNormalizedCacheKey(request) : undefined;
+
+    // 1. Check Cloudflare Worker Edge Cache (caches.default) for instant sub-100ms response
+    if (cfCache && cacheKey) {
+      try {
+        const cached = await cfCache.match(cacheKey);
+        if (cached) {
+          const res = new Response(cached.body, cached);
+          res.headers.set("X-Edge-Cache", "HIT");
+          return res;
+        }
+      } catch (cacheErr) {
+        console.warn("[edge-cache] Lookup error:", cacheErr);
+      }
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalized = await normalizeCatastrophicSsrResponse(response);
-      const { pathname } = new URL(request.url);
-      return withEdgeCache(normalized, pathname, request.method);
+      const edgeResponse = withEdgeCache(normalized, pathname, method);
+
+      // 2. If response is cacheable 200 OK, asynchronously store in Cloudflare Worker Edge Cache
+      if (cfCache && cacheKey && edgeResponse.status === 200 && !edgeResponse.headers.has("set-cookie")) {
+        edgeResponse.headers.set("X-Edge-Cache", "MISS");
+        try {
+          const waitCtx = ctx as { waitUntil?: (p: Promise<unknown>) => void } | undefined;
+          const putPromise = cfCache.put(cacheKey, edgeResponse.clone());
+          if (waitCtx && typeof waitCtx.waitUntil === "function") {
+            waitCtx.waitUntil(putPromise);
+          } else {
+            putPromise.catch((e) => console.warn("[edge-cache] Put failed:", e));
+          }
+        } catch (putErr) {
+          console.warn("[edge-cache] Put error:", putErr);
+        }
+      }
+
+      return edgeResponse;
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
