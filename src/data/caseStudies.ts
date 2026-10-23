@@ -61,8 +61,8 @@ export const caseStudies: CaseStudy[] = [
     industry: "Healthtech · Growth-stage",
     duration: "8-week sprint",
     body: "New narrative, visual system, and site shipped in a single sprint. Sales cycle shortened by 18%.",
-    serviceHref: "/services/corporate-identity-overhauls",
-    serviceLabel: "Corporate Identity Overhauls",
+    serviceHref: "/services/corporate-identity-systems",
+    serviceLabel: "Corporate Identity Systems",
     challenge:
       "A category shift left the existing brand misaligned with the new ICP. Sales decks, site, and identity were all pulling in different directions.",
     approach: [
@@ -94,8 +94,8 @@ export const caseStudies: CaseStudy[] = [
     industry: "Logistics · 240 employees",
     duration: "10-week engagement",
     body: "Goals, reviews, and comp bands wired into one operating cadence the leadership team actually runs.",
-    serviceHref: "/services/performance-management-systems",
-    serviceLabel: "Performance Management Systems",
+    serviceHref: "/services/performance-management",
+    serviceLabel: "Performance Management",
     challenge:
       "HR ran on spreadsheets. Review cycles slipped quarter after quarter and managers had no shared language for performance or compensation.",
     approach: [

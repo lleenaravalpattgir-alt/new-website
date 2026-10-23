@@ -74,10 +74,24 @@ function getCategoryCopy(category: string): CategoryCopy {
 
 
 
+// 301 redirect map: legacy / misspelled slugs → correct canonical slugs
+const SLUG_REDIRECTS: Record<string, string> = {
+  "corporate-identity-overhauls": "corporate-identity-systems",
+  "performance-management-systems": "performance-management",
+};
+
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
     if (!params.slug || params.slug.startsWith("$")) {
       throw redirect({ to: "/services", statusCode: 301 });
+    }
+    // Permanent redirect for legacy / alias slugs
+    if (SLUG_REDIRECTS[params.slug]) {
+      throw redirect({
+        to: "/services/$slug",
+        params: { slug: SLUG_REDIRECTS[params.slug] },
+        statusCode: 301,
+      });
     }
     const service = getService(params.slug);
     if (!service) throw notFound();

@@ -1,0 +1,45 @@
+# Cache static asset bundles with long max-age and immutable
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache blog pages at Cloudflare edge
+/blog/*
+  Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+  CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+
+# Cache insights pages at Cloudflare edge
+/insights/*
+  Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+  CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+
+# Cache service pages at Cloudflare edge
+/services/*
+  Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+  CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+
+# Cache case studies at Cloudflare edge
+/case-studies/*
+  Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+  CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+
+# Cache solutions at Cloudflare edge
+/solutions/*
+  Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+  CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+
+# Cache resources at Cloudflare edge
+/resources/*
+  Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+  CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+
+# Cache business-funding at Cloudflare edge
+/business-funding
+  Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+  CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800
