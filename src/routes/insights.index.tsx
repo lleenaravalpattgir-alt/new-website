@@ -1,10 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo, useEffect } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import {
-  INSIGHTS_CATEGORIES,
-  type InsightsArticle,
-} from "@/data/insightsArticles";
+import { INSIGHTS_CATEGORIES, type InsightsArticle } from "@/data/insightsArticles";
 import { getStoredPublishedArticles } from "@/lib/blog-storage";
 import {
   Search,
@@ -32,7 +29,7 @@ export const Route = createFileRoute("/insights/")({
       {
         name: "description",
         content: buildDescription(
-          "Practical advice for business owners, startup founders, and growing companies in Ahmedabad, Gujarat, and India. Simple, useful guidance on finance, leadership, marketing, AI, operations, and business growth."
+          "Practical advice for business owners, startup founders, and growing companies in Ahmedabad, Gujarat, and India. Simple, useful guidance on finance, leadership, marketing, AI, operations, and business growth.",
         ),
       },
       { property: "og:title", content: "Insights & Resources | Rise Advisory" },
@@ -52,7 +49,7 @@ const ARTICLES_PER_PAGE = 6;
 
 export function InsightsIndexPage() {
   const [publishedArticles, setPublishedArticles] = useState<InsightsArticle[]>(() =>
-    getStoredPublishedArticles()
+    getStoredPublishedArticles(),
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -134,14 +131,22 @@ export function InsightsIndexPage() {
             </h1>
 
             <p className="mt-5 text-base sm:text-lg md:text-xl text-[#EEF4FA]/90 leading-relaxed font-normal">
-              Practical advice for business owners, startup founders, and growing companies. Explore simple, useful guidance on finance, leadership, marketing, AI, operations, and business growth.
+              Practical advice for business owners, startup founders, and growing companies. Explore
+              simple, useful guidance on finance, leadership, marketing, AI, operations, and
+              business growth.
             </p>
 
             <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-[#D4A238]/90 font-medium">
               <span>Focus areas:</span>
-              <span className="bg-[#0E2A4D] px-2.5 py-1 rounded-md border border-[#D4A238]/30">Ahmedabad</span>
-              <span className="bg-[#0E2A4D] px-2.5 py-1 rounded-md border border-[#D4A238]/30">Gujarat</span>
-              <span className="bg-[#0E2A4D] px-2.5 py-1 rounded-md border border-[#D4A238]/30">India</span>
+              <span className="bg-[#0E2A4D] px-2.5 py-1 rounded-md border border-[#D4A238]/30">
+                Ahmedabad
+              </span>
+              <span className="bg-[#0E2A4D] px-2.5 py-1 rounded-md border border-[#D4A238]/30">
+                Gujarat
+              </span>
+              <span className="bg-[#0E2A4D] px-2.5 py-1 rounded-md border border-[#D4A238]/30">
+                India
+              </span>
             </div>
 
             {/* Instant Search Bar */}
@@ -168,7 +173,9 @@ export function InsightsIndexPage() {
               </div>
               {searchQuery && (
                 <div className="mt-2 text-xs text-[#EEF4FA]/80">
-                  Showing results for <span className="font-semibold text-[#D4A238]">"{searchQuery}"</span> ({filteredArticles.length} found)
+                  Showing results for{" "}
+                  <span className="font-semibold text-[#D4A238]">"{searchQuery}"</span> (
+                  {filteredArticles.length} found)
                 </div>
               )}
             </div>
@@ -182,13 +189,16 @@ export function InsightsIndexPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-3">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#B8860B]">Curated Reads</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#B8860B]">
+                  Curated Reads
+                </span>
                 <h2 className="mt-1 text-2xl sm:text-3xl font-extrabold text-[#0F1E2F]">
                   Featured Articles
                 </h2>
               </div>
               <p className="text-xs sm:text-sm text-[#53637C] max-w-md">
-                Hand-picked executive guides authored by senior practitioners for leadership and growth.
+                Hand-picked executive guides authored by senior practitioners for leadership and
+                growth.
               </p>
             </div>
 
@@ -221,9 +231,7 @@ export function InsightsIndexPage() {
                           {article.title}
                         </Link>
                       </h3>
-                      <div className="text-[11px] text-[#EEF4FA]/70">
-                        {article.primaryKeyword}
-                      </div>
+                      <div className="text-[11px] text-[#EEF4FA]/70">{article.primaryKeyword}</div>
                     </div>
 
                     {/* Excerpt */}
@@ -261,7 +269,8 @@ export function InsightsIndexPage() {
               Browse by Category
             </span>
             <span className="text-xs text-[#53637C]">
-              {filteredArticles.length} {filteredArticles.length === 1 ? "article" : "articles"} available
+              {filteredArticles.length} {filteredArticles.length === 1 ? "article" : "articles"}{" "}
+              available
             </span>
           </div>
 
@@ -306,7 +315,8 @@ export function InsightsIndexPage() {
                 ? searchQuery
                   ? "Search Results"
                   : "All Published Articles"
-                : INSIGHTS_CATEGORIES.find((c) => c.slug === selectedCategory)?.name || "Category Articles"}
+                : INSIGHTS_CATEGORIES.find((c) => c.slug === selectedCategory)?.name ||
+                  "Category Articles"}
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-[#53637C]">
               Clear, practical explanations designed for founders, owners, and leadership teams.
@@ -319,7 +329,8 @@ export function InsightsIndexPage() {
               <BookOpen className="mx-auto h-12 w-12 text-[#94A3B8] mb-4" />
               <h3 className="text-lg font-bold text-[#0F1E2F]">No articles match your criteria</h3>
               <p className="mt-2 text-xs sm:text-sm text-[#53637C] leading-relaxed">
-                We are actively writing new educational articles for this topic. Try selecting "All Articles", or search for another keyword like "fractional", "loans", or "AI".
+                We are actively writing new educational articles for this topic. Try selecting "All
+                Articles", or search for another keyword like "fractional", "loans", or "AI".
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <button
@@ -332,7 +343,8 @@ export function InsightsIndexPage() {
                   View All Articles
                 </button>
                 <Link
-                  to="/fractional-leaders/cfo"
+                  to="/fractional-leaders/$slug"
+                  params={{ slug: "cfo" }}
                   className="rounded-lg border border-[#E2E8F0] bg-[#EEF4FA] px-4 py-2 text-xs font-bold text-[#0B1F3B] hover:bg-[#E2E8F0] transition"
                 >
                   Explore CFO Guide
@@ -417,7 +429,8 @@ export function InsightsIndexPage() {
               Popular Resources &amp; Checklists
             </h2>
             <p className="mt-3 text-sm sm:text-base text-[#53637C] leading-relaxed">
-              Self-serve frameworks, diagnostics, and eligibility screeners built for Indian business owners and startup founders.
+              Self-serve frameworks, diagnostics, and eligibility screeners built for Indian
+              business owners and startup founders.
             </p>
           </div>
 
@@ -428,9 +441,12 @@ export function InsightsIndexPage() {
                 <div className="p-2.5 rounded-lg bg-[#EEF4FA] text-[#0B1F3B] w-fit mb-4">
                   <FileText className="h-5 w-5 text-[#B8860B]" />
                 </div>
-                <h3 className="text-base font-bold text-[#0F1E2F]">Business Loan Readiness Checklist</h3>
+                <h3 className="text-base font-bold text-[#0F1E2F]">
+                  Business Loan Readiness Checklist
+                </h3>
                 <p className="mt-2 text-xs text-[#53637C] leading-relaxed">
-                  Review the essential documents, CIBIL benchmark scores, and CMA projections required before approaching banks in Ahmedabad &amp; Gujarat.
+                  Review the essential documents, CIBIL benchmark scores, and CMA projections
+                  required before approaching banks in Ahmedabad &amp; Gujarat.
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-[#E2E8F0]">
@@ -452,7 +468,8 @@ export function InsightsIndexPage() {
                 </div>
                 <h3 className="text-base font-bold text-[#0F1E2F]">Startup Funding Guide</h3>
                 <p className="mt-2 text-xs text-[#53637C] leading-relaxed">
-                  Understand seed grants, angel investment, venture debt, and government schemes like Startup India Seed Fund.
+                  Understand seed grants, angel investment, venture debt, and government schemes
+                  like Startup India Seed Fund.
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-[#E2E8F0]">
@@ -474,12 +491,14 @@ export function InsightsIndexPage() {
                 </div>
                 <h3 className="text-base font-bold text-[#0F1E2F]">Fractional CFO Guide</h3>
                 <p className="mt-2 text-xs text-[#53637C] leading-relaxed">
-                  Learn how a part-time finance leader structures MIS reporting, cash-flow runway models, and investor discussions.
+                  Learn how a part-time finance leader structures MIS reporting, cash-flow runway
+                  models, and investor discussions.
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-[#E2E8F0]">
                 <Link
-                  to="/fractional-leaders/cfo"
+                  to="/fractional-leaders/$slug"
+                  params={{ slug: "cfo" }}
                   className="text-xs font-bold text-[#B8860B] hover:text-[#0B1F3B] inline-flex items-center gap-1"
                 >
                   <span>View Fractional CFO Scope</span>
@@ -494,9 +513,12 @@ export function InsightsIndexPage() {
                 <div className="p-2.5 rounded-lg bg-[#EEF4FA] text-[#0B1F3B] w-fit mb-4">
                   <Cpu className="h-5 w-5 text-[#B8860B]" />
                 </div>
-                <h3 className="text-base font-bold text-[#0F1E2F]">AI Readiness Assessment for SMEs</h3>
+                <h3 className="text-base font-bold text-[#0F1E2F]">
+                  AI Readiness Assessment for SMEs
+                </h3>
                 <p className="mt-2 text-xs text-[#53637C] leading-relaxed">
-                  Evaluate whether your business data, software systems, and teams are ready for practical AI automation tools.
+                  Evaluate whether your business data, software systems, and teams are ready for
+                  practical AI automation tools.
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-[#E2E8F0]">
@@ -516,9 +538,12 @@ export function InsightsIndexPage() {
                 <div className="p-2.5 rounded-lg bg-[#EEF4FA] text-[#0B1F3B] w-fit mb-4">
                   <ShieldCheck className="h-5 w-5 text-[#B8860B]" />
                 </div>
-                <h3 className="text-base font-bold text-[#0F1E2F]">Business Process Improvement Checklist</h3>
+                <h3 className="text-base font-bold text-[#0F1E2F]">
+                  Business Process Improvement Checklist
+                </h3>
                 <p className="mt-2 text-xs text-[#53637C] leading-relaxed">
-                  Pinpoint founder bottlenecks, map key departmental handoffs, and create repeatable SOPs that scale cleanly.
+                  Pinpoint founder bottlenecks, map key departmental handoffs, and create repeatable
+                  SOPs that scale cleanly.
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-[#E2E8F0]">
@@ -547,7 +572,8 @@ export function InsightsIndexPage() {
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-[#EEF4FA]/85 max-w-2xl mx-auto leading-relaxed">
-            Explore practical guidance and professional support for finance, leadership, technology, operations, and business growth.
+            Explore practical guidance and professional support for finance, leadership, technology,
+            operations, and business growth.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -568,7 +594,8 @@ export function InsightsIndexPage() {
           </div>
 
           <p className="mt-8 text-xs text-[#EEF4FA]/60 max-w-lg mx-auto">
-            Serving growing businesses, MSMEs, and startups in Ahmedabad, Gujarat, and across India. Advisory services are tailored to your company's operational context.
+            Serving growing businesses, MSMEs, and startups in Ahmedabad, Gujarat, and across India.
+            Advisory services are tailored to your company's operational context.
           </p>
         </div>
       </section>

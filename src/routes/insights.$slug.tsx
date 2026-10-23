@@ -24,7 +24,12 @@ import {
   Building2,
   ShieldAlert,
 } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { buildTitle, buildDescription, ORG_NAME, ORG_LOGO } from "@/lib/seo";
 
 export const Route = createFileRoute("/insights/$slug")({
@@ -51,14 +56,23 @@ export const Route = createFileRoute("/insights/$slug")({
           author: legacy.author,
           authorRole: "Executive Practice Lead, Rise Advisory",
           publishedDate: legacy.date,
-          readTime: legacy.readTime,
+          readTime: legacy.readingTime || legacy.readTime || "5 min",
           status: "published",
           primaryKeyword: legacy.category,
           secondaryKeywords: [legacy.pillar],
           imageUrl: "/logo.png",
           imageAlt: legacy.title,
           content: legacy.content.map((b) => ({
-            type: b.type === "h2" ? "h2" : b.type === "h3" ? "h3" : b.type === "quote" ? "quote" : b.type === "list" ? "list" : "p",
+            type:
+              b.type === "h2"
+                ? "h2"
+                : b.type === "h3"
+                  ? "h3"
+                  : b.type === "quote"
+                    ? "quote"
+                    : b.type === "list"
+                      ? "list"
+                      : "p",
             text: b.text,
             items: b.items,
           })),
@@ -82,7 +96,10 @@ export const Route = createFileRoute("/insights/$slug")({
       return {
         meta: [
           { title: buildTitle("Insights & Resources") },
-          { name: "description", content: buildDescription("Educational business advice from Ryze Advisory.") },
+          {
+            name: "description",
+            content: buildDescription("Educational business advice from Ryze Advisory."),
+          },
         ],
       };
     }
@@ -192,7 +209,11 @@ function ArticleDetailPage() {
     switch (block.type) {
       case "h2": {
         // Create an id for table of contents jump links
-        const id = block.text?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || `section-${idx}`;
+        const id =
+          block.text
+            ?.toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "") || `section-${idx}`;
         return (
           <h2
             key={idx}
@@ -225,7 +246,10 @@ function ArticleDetailPage() {
         return (
           <ul key={idx} className="my-5 space-y-2.5 pl-2">
             {(block.items ?? []).map((item, itemIdx) => (
-              <li key={itemIdx} className="flex items-start gap-3 text-base text-[#2C3E55] leading-relaxed">
+              <li
+                key={itemIdx}
+                className="flex items-start gap-3 text-base text-[#2C3E55] leading-relaxed"
+              >
                 <span className="mt-2.5 inline-block h-2 w-2 shrink-0 rounded-full bg-[#D4A238]" />
                 <span>{item}</span>
               </li>
@@ -234,7 +258,10 @@ function ArticleDetailPage() {
         );
       case "checklist":
         return (
-          <div key={idx} className="my-6 rounded-xl border border-[#E2E8F0] bg-[#F8FBFF] p-6 shadow-xs">
+          <div
+            key={idx}
+            className="my-6 rounded-xl border border-[#E2E8F0] bg-[#F8FBFF] p-6 shadow-xs"
+          >
             {block.calloutTitle && (
               <div className="text-sm font-bold text-[#0F1E2F] uppercase tracking-wider mb-4 flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-[#B8860B]" />
@@ -243,7 +270,10 @@ function ArticleDetailPage() {
             )}
             <ul className="space-y-3">
               {(block.items ?? []).map((item, itemIdx) => (
-                <li key={itemIdx} className="flex items-start gap-3 text-sm sm:text-base text-[#2C3E55]">
+                <li
+                  key={itemIdx}
+                  className="flex items-start gap-3 text-sm sm:text-base text-[#2C3E55]"
+                >
                   <Check className="mt-1 h-4 w-4 shrink-0 text-[#25D366] font-bold" />
                   <span>{item}</span>
                 </li>
@@ -268,7 +298,10 @@ function ArticleDetailPage() {
         );
       case "table":
         return (
-          <div key={idx} className="my-8 overflow-hidden rounded-xl border border-[#E2E8F0] shadow-sm">
+          <div
+            key={idx}
+            className="my-8 overflow-hidden rounded-xl border border-[#E2E8F0] shadow-sm"
+          >
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead className="bg-[#0B1F3B] text-white">
@@ -287,7 +320,11 @@ function ArticleDetailPage() {
                   {(block.rows ?? []).map((row, rIdx) => (
                     <tr
                       key={rIdx}
-                      className={rIdx % 2 === 0 ? "bg-white hover:bg-[#F8FBFF]" : "bg-[#F8FBFF]/60 hover:bg-[#F8FBFF]"}
+                      className={
+                        rIdx % 2 === 0
+                          ? "bg-white hover:bg-[#F8FBFF]"
+                          : "bg-[#F8FBFF]/60 hover:bg-[#F8FBFF]"
+                      }
                     >
                       {row.map((cell, cIdx) => (
                         <td
@@ -412,9 +449,7 @@ function ArticleDetailPage() {
             )}
 
             {/* Article Blocks */}
-            <div className="space-y-6">
-              {article.content.map((b, idx) => renderBlock(b, idx))}
-            </div>
+            <div className="space-y-6">{article.content.map((b, idx) => renderBlock(b, idx))}</div>
 
             {/* Inline Service Recommendation (Internal Linking) */}
             {article.relatedService && (
@@ -442,7 +477,10 @@ function ArticleDetailPage() {
 
             {/* FAQs Section */}
             {article.faqs && article.faqs.length > 0 && (
-              <section id="faqs" className="mt-14 scroll-mt-24 rounded-2xl border border-[#E2E8F0] bg-white p-6 sm:p-8 shadow-xs">
+              <section
+                id="faqs"
+                className="mt-14 scroll-mt-24 rounded-2xl border border-[#E2E8F0] bg-white p-6 sm:p-8 shadow-xs"
+              >
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#B8860B]">
                   <HelpCircle className="h-4 w-4" /> Frequently Asked Questions
                 </div>
@@ -489,8 +527,14 @@ function ArticleDetailPage() {
                   >
                     {article.author}
                   </Link>
-                  <p className="mt-2 text-xs sm:text-sm text-[#53637C] leading-relaxed" itemProp="description">
-                    Founder and Strategic Growth Advisor at Rise Advisory. Leena works closely with startup founders, SME promoters, and family business leadership across Ahmedabad and Gujarat to implement reliable financial planning, governance, and fractional executive models.
+                  <p
+                    className="mt-2 text-xs sm:text-sm text-[#53637C] leading-relaxed"
+                    itemProp="description"
+                  >
+                    Founder and Strategic Growth Advisor at Rise Advisory. Leena works closely with
+                    startup founders, SME promoters, and family business leadership across Ahmedabad
+                    and Gujarat to implement reliable financial planning, governance, and fractional
+                    executive models.
                   </p>
                   <div className="mt-3">
                     <Link
@@ -514,11 +558,13 @@ function ArticleDetailPage() {
                 Need Financial Guidance for Your Business?
               </h2>
               <p className="mt-3 text-sm sm:text-base text-[#EEF4FA]/85 leading-relaxed">
-                Explore financial planning, cash flow forecasting, and fractional CFO support options tailored for your company.
+                Explore financial planning, cash flow forecasting, and fractional CFO support
+                options tailored for your company.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Link
-                  to="/fractional-leaders/cfo"
+                  to="/fractional-leaders/$slug"
+                  params={{ slug: "cfo" }}
                   className="btn-gold px-5 py-3 rounded-lg text-xs uppercase tracking-wider font-bold shadow-gold inline-flex items-center gap-2"
                 >
                   <span>Explore CFO Services</span>
@@ -576,7 +622,8 @@ function ArticleDetailPage() {
                 Need Senior Leadership Without Full-Time Payroll?
               </h3>
               <p className="mt-2 text-xs text-[#D1D7DF] leading-relaxed">
-                Engage an experienced fractional CFO, CMO, or CTO to structure your next growth milestones.
+                Engage an experienced fractional CFO, CMO, or CTO to structure your next growth
+                milestones.
               </p>
               <div className="mt-5 space-y-2.5">
                 <Link
@@ -604,7 +651,8 @@ function ArticleDetailPage() {
                 Exploring MSME Loans &amp; Subsidies?
               </div>
               <p className="mt-1 text-xs text-[#53637C] leading-relaxed">
-                Check bank loan readiness, interest subsidies, and collateral-free CGTMSE options in Gujarat.
+                Check bank loan readiness, interest subsidies, and collateral-free CGTMSE options in
+                Gujarat.
               </p>
               <Link
                 to="/business-funding"

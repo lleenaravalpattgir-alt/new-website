@@ -63,7 +63,7 @@ export function getStoredPublishedArticles(): InsightsArticle[] {
  */
 export function getStoredArticleBySlug(
   slug: string,
-  includeDrafts = false
+  includeDrafts = false,
 ): InsightsArticle | undefined {
   const all = getStoredArticles();
   const article = all.find((a) => a.slug === slug);
@@ -80,22 +80,35 @@ export function getStoredArticleBySlug(
  * and asynchronously syncs to Supabase if connected.
  */
 export async function saveArticle(
-  article: Partial<InsightsArticle> & { title: string; slug: string }
+  article: Partial<InsightsArticle> & { title: string; slug: string },
 ): Promise<InsightsArticle> {
   const all = [...getStoredArticles()];
   const existingIndex = all.findIndex((a) => a.slug === article.slug);
 
   const now = new Date();
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
   const formattedDate = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
 
   const categoryName = article.category || "Business Strategy";
   const categorySlug =
     article.categorySlug ||
-    categoryName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    categoryName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
 
   const fullArticle: InsightsArticle = {
     slug: article.slug,
@@ -110,7 +123,7 @@ export async function saveArticle(
     publishedDate: article.publishedDate || formattedDate,
     updatedDate: formattedDate,
     readTime: article.readTime || "6 min read",
-    status: (article.status as "published" | "draft") || "draft",
+    status: (article.status as "published" | "draft" | "scheduled") || "draft",
     featured: Boolean(article.featured),
     primaryKeyword: article.primaryKeyword || article.title,
     secondaryKeywords: article.secondaryKeywords || [],
@@ -136,7 +149,9 @@ export async function saveArticle(
   if (typeof window !== "undefined") {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-      window.dispatchEvent(new CustomEvent("ryze-articles-updated", { detail: { slug: fullArticle.slug } }));
+      window.dispatchEvent(
+        new CustomEvent("ryze-articles-updated", { detail: { slug: fullArticle.slug } }),
+      );
     } catch (e) {
       console.error("[blog-storage] Failed to save to localStorage", e);
     }
@@ -186,7 +201,9 @@ export async function deleteArticle(slug: string): Promise<boolean> {
   if (typeof window !== "undefined") {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-      window.dispatchEvent(new CustomEvent("ryze-articles-updated", { detail: { slug, deleted: true } }));
+      window.dispatchEvent(
+        new CustomEvent("ryze-articles-updated", { detail: { slug, deleted: true } }),
+      );
     } catch (e) {
       console.error("[blog-storage] Failed to save deletion", e);
     }
@@ -194,7 +211,10 @@ export async function deleteArticle(slug: string): Promise<boolean> {
 
   // Attempt Supabase deletion in background
   try {
-    await supabase.from("blog_posts" as any).delete().eq("slug", slug);
+    await supabase
+      .from("blog_posts" as any)
+      .delete()
+      .eq("slug", slug);
   } catch {
     // Gracefully ignore if table not present
   }
@@ -222,7 +242,7 @@ export function getStoredCategories() {
   return INSIGHTS_CATEGORIES.map((cat) => {
     const totalCount = articles.filter((a) => a.categorySlug === cat.slug).length;
     const publishedCount = articles.filter(
-      (a) => a.categorySlug === cat.slug && a.status === "published"
+      (a) => a.categorySlug === cat.slug && a.status === "published",
     ).length;
     return {
       ...cat,

@@ -31,7 +31,7 @@ export interface InsightsArticle {
   publishedDate: string;
   updatedDate?: string;
   readTime: string;
-  status: "published" | "draft";
+  status: "published" | "draft" | "scheduled";
   featured?: boolean;
   primaryKeyword: string;
   secondaryKeywords: string[];
@@ -62,8 +62,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "fractional-cfo-vs-full-time-cfo",
     title: "Fractional CFO vs Full-Time CFO: Which Is Better for Your Business?",
     seoTitle: "Fractional CFO vs Full-Time CFO: Which Is Better?",
-    metaDescription: "Compare a fractional CFO with a full-time CFO. Learn about their roles, costs, benefits, and which option may suit your business.",
-    excerpt: "Managing business finances is not only about earning money. Compare fractional and full-time CFOs across roles, costs, cash flow control, and growth suitability.",
+    metaDescription:
+      "Compare a fractional CFO with a full-time CFO. Learn about their roles, costs, benefits, and which option may suit your business.",
+    excerpt:
+      "Managing business finances is not only about earning money. Compare fractional and full-time CFOs across roles, costs, cash flow control, and growth suitability.",
     category: "Finance & CFO Services",
     categorySlug: "finance-cfo-services",
     author: "Leena Raval",
@@ -178,11 +180,31 @@ export const insightsArticles: InsightsArticle[] = [
         headers: ["Factor", "Fractional CFO", "Full-Time CFO"],
         rows: [
           ["Working arrangement", "Part-time or agreed engagement", "Full-time employee"],
-          ["Cost structure", "Agreed monthly fee or retainer", "Salary, bonus, and employment costs"],
-          ["Availability", "Based on agreed hours & priorities", "Regular daily involvement (40+ hrs/wk)"],
-          ["Typical fit", "Startups, SMEs & growing businesses", "Larger corporations (₹100 Cr+ revenue)"],
-          ["Financial planning", "Yes — strategic forecasts & MIS", "Yes — full operational oversight"],
-          ["Team leadership", "Mentors internal accountants", "Directly manages the entire finance team"],
+          [
+            "Cost structure",
+            "Agreed monthly fee or retainer",
+            "Salary, bonus, and employment costs",
+          ],
+          [
+            "Availability",
+            "Based on agreed hours & priorities",
+            "Regular daily involvement (40+ hrs/wk)",
+          ],
+          [
+            "Typical fit",
+            "Startups, SMEs & growing businesses",
+            "Larger corporations (₹100 Cr+ revenue)",
+          ],
+          [
+            "Financial planning",
+            "Yes — strategic forecasts & MIS",
+            "Yes — full operational oversight",
+          ],
+          [
+            "Team leadership",
+            "Mentors internal accountants",
+            "Directly manages the entire finance team",
+          ],
           ["Flexibility", "High — scale up or down as needed", "Dedicated permanent hire"],
         ],
       },
@@ -317,7 +339,8 @@ export const insightsArticles: InsightsArticle[] = [
     relatedService: {
       title: "Fractional CFO Practice & Advisory",
       url: "/fractional-leaders/cfo",
-      description: "Embed an experienced CFO 1 to 2 days per week for 13-week cash modeling, MIS packs, and capital readiness.",
+      description:
+        "Embed an experienced CFO 1 to 2 days per week for 13-week cash modeling, MIS packs, and capital readiness.",
     },
     relatedSlugs: [
       "what-is-a-fractional-cxo-india-guide",
@@ -331,8 +354,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "what-is-a-fractional-cxo-india-guide",
     title: "What Is a Fractional CXO? A Strategic Guide for Indian Businesses",
     seoTitle: "What Is a Fractional CXO? Guide for Indian Businesses | Rise Advisory",
-    metaDescription: "Learn what a Fractional CXO is, how fractional leadership works in India, cost comparison vs full-time C-suite, and when your business should hire one.",
-    excerpt: "Indian startups and SMEs face a leadership dilemma: full-time executive hiring costs ₹40L–₹80L+, yet junior managers lack strategic governance. Here is how the fractional CXO model bridges the gap.",
+    metaDescription:
+      "Learn what a Fractional CXO is, how fractional leadership works in India, cost comparison vs full-time C-suite, and when your business should hire one.",
+    excerpt:
+      "Indian startups and SMEs face a leadership dilemma: full-time executive hiring costs ₹40L–₹80L+, yet junior managers lack strategic governance. Here is how the fractional CXO model bridges the gap.",
     category: "Fractional Leadership",
     categorySlug: "fractional-leadership",
     author: "Leena Raval",
@@ -384,9 +409,24 @@ export const insightsArticles: InsightsArticle[] = [
         type: "table",
         headers: ["Model", "Cost Impact", "Accountability", "Speed of Onboarding"],
         rows: [
-          ["Full-Time CXO", "High fixed CTC + equity options", "Direct employee oversight", "3 to 6 months"],
-          ["Management Consultant", "High project fees for recommendations", "Low — advisory report only", "1 to 2 months"],
-          ["Fractional CXO", "Flexible monthly retainer (25-30% cost)", "High — owns 90-day deliverables", "5 to 10 days"],
+          [
+            "Full-Time CXO",
+            "High fixed CTC + equity options",
+            "Direct employee oversight",
+            "3 to 6 months",
+          ],
+          [
+            "Management Consultant",
+            "High project fees for recommendations",
+            "Low — advisory report only",
+            "1 to 2 months",
+          ],
+          [
+            "Fractional CXO",
+            "Flexible monthly retainer (25-30% cost)",
+            "High — owns 90-day deliverables",
+            "5 to 10 days",
+          ],
         ],
       },
       {
@@ -430,19 +470,19 @@ export const insightsArticles: InsightsArticle[] = [
     relatedService: {
       title: "Fractional Executive Bench",
       url: "/fractional-leaders",
-      description: "Vetted senior CFOs, CMOs, CTOs, and COOs available on structured 90-day execution retainers.",
+      description:
+        "Vetted senior CFOs, CMOs, CTOs, and COOs available on structured 90-day execution retainers.",
     },
-    relatedSlugs: [
-      "fractional-cfo-vs-full-time-cfo",
-      "when-should-startup-hire-fractional-cmo",
-    ],
+    relatedSlugs: ["fractional-cfo-vs-full-time-cfo", "when-should-startup-hire-fractional-cmo"],
   },
   {
     slug: "when-should-startup-hire-fractional-cmo",
     title: "When Should a Startup Hire a Fractional CMO? The Growth Stage Checklist",
     seoTitle: "When to Hire a Fractional CMO: Startup Checklist | Rise Advisory",
-    metaDescription: "Discover the 6 clear signs your startup needs a Fractional CMO, why ad agencies fail without marketing leadership, and how to structure a 90-day growth sprint.",
-    excerpt: "Most early-stage startups make the costly mistake of hiring an ad agency before clarifying their positioning. A Fractional CMO establishes unit economics and repeatable go-to-market systems.",
+    metaDescription:
+      "Discover the 6 clear signs your startup needs a Fractional CMO, why ad agencies fail without marketing leadership, and how to structure a 90-day growth sprint.",
+    excerpt:
+      "Most early-stage startups make the costly mistake of hiring an ad agency before clarifying their positioning. A Fractional CMO establishes unit economics and repeatable go-to-market systems.",
     category: "Marketing & Growth",
     categorySlug: "marketing-growth",
     author: "Leena Raval",
@@ -509,19 +549,19 @@ export const insightsArticles: InsightsArticle[] = [
     relatedService: {
       title: "Fractional CMO Practice",
       url: "/fractional-leaders/cmo",
-      description: "Senior marketing leadership to establish CAC discipline, position your brand, and manage marketing teams.",
+      description:
+        "Senior marketing leadership to establish CAC discipline, position your brand, and manage marketing teams.",
     },
-    relatedSlugs: [
-      "what-is-a-fractional-cxo-india-guide",
-      "fractional-cfo-vs-full-time-cfo",
-    ],
+    relatedSlugs: ["what-is-a-fractional-cxo-india-guide", "fractional-cfo-vs-full-time-cfo"],
   },
   {
     slug: "msme-business-loans-subsidies-gujarat",
     title: "MSME Business Loans & Government Subsidies in Gujarat (2026 Guide)",
     seoTitle: "MSME Loans & Subsidies Gujarat 2026 Guide | Rise Advisory",
-    metaDescription: "Comprehensive guide to CGTMSE collateral-free loans, Gujarat State Industrial Policy subsidies, Mudra loans, and bank readiness for Ahmedabad MSMEs.",
-    excerpt: "A practical guide for Gujarat business owners on accessing collateral-free loans up to ₹5 Cr, state capital interest subsidies, and preparing CMA reports for fast bank approval.",
+    metaDescription:
+      "Comprehensive guide to CGTMSE collateral-free loans, Gujarat State Industrial Policy subsidies, Mudra loans, and bank readiness for Ahmedabad MSMEs.",
+    excerpt:
+      "A practical guide for Gujarat business owners on accessing collateral-free loans up to ₹5 Cr, state capital interest subsidies, and preparing CMA reports for fast bank approval.",
     category: "Business Loans & MSME",
     categorySlug: "business-loans-msme",
     author: "Leena Raval",
@@ -580,18 +620,19 @@ export const insightsArticles: InsightsArticle[] = [
     relatedService: {
       title: "Business Funding Portal & Calculator",
       url: "/business-funding",
-      description: "Explore collateral-free bank loans, Gujarat state subsidy calculators, and document checklists.",
+      description:
+        "Explore collateral-free bank loans, Gujarat state subsidy calculators, and document checklists.",
     },
-    relatedSlugs: [
-      "fractional-cfo-vs-full-time-cfo",
-    ],
+    relatedSlugs: ["fractional-cfo-vs-full-time-cfo"],
   },
   {
     slug: "ai-automation-guide-small-businesses",
     title: "How Can AI Automation Help Small Businesses in India? A Practical Guide",
     seoTitle: "AI Automation Guide for Indian Small Businesses | Rise Advisory",
-    metaDescription: "Learn how SMEs in India can deploy practical AI automation across invoicing, lead follow-up, customer support, and reporting to save 20+ hours a week.",
-    excerpt: "Cutting through the AI hype: practical, low-cost automation workflows using n8n, Make, and LLMs that reduce operating overhead for growing Indian companies.",
+    metaDescription:
+      "Learn how SMEs in India can deploy practical AI automation across invoicing, lead follow-up, customer support, and reporting to save 20+ hours a week.",
+    excerpt:
+      "Cutting through the AI hype: practical, low-cost automation workflows using n8n, Make, and LLMs that reduce operating overhead for growing Indian companies.",
     category: "Technology & AI",
     categorySlug: "technology-ai",
     author: "Leena Raval",
@@ -635,11 +676,10 @@ export const insightsArticles: InsightsArticle[] = [
     relatedService: {
       title: "Technology, Product & AI Solutions",
       url: "/solutions/technology-product-ai",
-      description: "Fractional CTO and AI leadership to streamline operations and build intelligent workflows.",
+      description:
+        "Fractional CTO and AI leadership to streamline operations and build intelligent workflows.",
     },
-    relatedSlugs: [
-      "what-is-a-fractional-cxo-india-guide",
-    ],
+    relatedSlugs: ["what-is-a-fractional-cxo-india-guide"],
   },
 
   // ==========================================
@@ -649,8 +689,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "how-much-does-fractional-cto-cost-india",
     title: "How Much Does a Fractional CTO Cost in India? (2026 Pricing Breakdown)",
     seoTitle: "Cost of Fractional CTO in India (2026 Guide) | Rise Advisory",
-    metaDescription: "Discover how much a Fractional CTO costs in India compared to full-time engineering executives, including retainers, sprint pricing, and scope.",
-    excerpt: "A realistic pricing guide for non-technical founders on hiring seasoned software and AI leadership on part-time retainers without equity dilution.",
+    metaDescription:
+      "Discover how much a Fractional CTO costs in India compared to full-time engineering executives, including retainers, sprint pricing, and scope.",
+    excerpt:
+      "A realistic pricing guide for non-technical founders on hiring seasoned software and AI leadership on part-time retainers without equity dilution.",
     category: "Technology & AI",
     categorySlug: "technology-ai",
     author: "Leena Raval",
@@ -659,7 +701,11 @@ export const insightsArticles: InsightsArticle[] = [
     readTime: "8 min read",
     status: "draft",
     primaryKeyword: "cost of fractional CTO India",
-    secondaryKeywords: ["fractional CTO India", "fractional CTO Ahmedabad", "virtual CTO for startups"],
+    secondaryKeywords: [
+      "fractional CTO India",
+      "fractional CTO Ahmedabad",
+      "virtual CTO for startups",
+    ],
     imageUrl: "/logo.png",
     imageAlt: "Fractional CTO cost comparison chart",
     content: [],
@@ -668,8 +714,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "how-to-improve-cash-flow-small-business",
     title: "How to Improve Cash Flow in a Small Business: 7 Practical Rules",
     seoTitle: "How to Improve Cash Flow in a Small Business | Rise Advisory",
-    metaDescription: "Learn 7 actionable steps to fix trapped working capital, reduce customer payment delays (DSO), and build rolling 13-week cash visibility.",
-    excerpt: "Profit on paper does not pay vendor invoices. Here is how growing businesses master cash flow planning and eliminate chronic liquidity shortages.",
+    metaDescription:
+      "Learn 7 actionable steps to fix trapped working capital, reduce customer payment delays (DSO), and build rolling 13-week cash visibility.",
+    excerpt:
+      "Profit on paper does not pay vendor invoices. Here is how growing businesses master cash flow planning and eliminate chronic liquidity shortages.",
     category: "Finance & CFO Services",
     categorySlug: "finance-cfo-services",
     author: "Leena Raval",
@@ -687,8 +735,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "what-is-investor-readiness-startups",
     title: "What Is Investor Readiness for Startups? The Due Diligence Blueprint",
     seoTitle: "Investor Readiness for Startups: Diligence Guide | Rise Advisory",
-    metaDescription: "Understand what angels, venture funds, and family offices look for in financial models, cap tables, data rooms, and unit economics before investing.",
-    excerpt: "A comprehensive checklist on auditing governance, cohorts, clean revenue recognition, and shareholder agreements before opening a funding round.",
+    metaDescription:
+      "Understand what angels, venture funds, and family offices look for in financial models, cap tables, data rooms, and unit economics before investing.",
+    excerpt:
+      "A comprehensive checklist on auditing governance, cohorts, clean revenue recognition, and shareholder agreements before opening a funding round.",
     category: "Startup Funding",
     categorySlug: "startup-funding",
     author: "Leena Raval",
@@ -706,8 +756,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "how-to-professionalise-family-business",
     title: "How to Professionalise a Family Business: Governance, Succession & Modern MIS",
     seoTitle: "How to Professionalise a Family Business in India | Rise Advisory",
-    metaDescription: "Guide for promoter-led family businesses in Gujarat on creating board governance, succession planning, delegating to non-family executives, and installing automated MIS.",
-    excerpt: "Transition from promoter dependency to professional governance and institutional systems while protecting core family values and legacy.",
+    metaDescription:
+      "Guide for promoter-led family businesses in Gujarat on creating board governance, succession planning, delegating to non-family executives, and installing automated MIS.",
+    excerpt:
+      "Transition from promoter dependency to professional governance and institutional systems while protecting core family values and legacy.",
     category: "Family Business",
     categorySlug: "family-business",
     author: "Leena Raval",
@@ -716,7 +768,10 @@ export const insightsArticles: InsightsArticle[] = [
     readTime: "9 min read",
     status: "draft",
     primaryKeyword: "how to professionalise a family business",
-    secondaryKeywords: ["family business consultant Gujarat", "succession planning consultant India"],
+    secondaryKeywords: [
+      "family business consultant Gujarat",
+      "succession planning consultant India",
+    ],
     imageUrl: "/logo.png",
     imageAlt: "Generational leaders in family business boardroom",
     content: [],
@@ -725,8 +780,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "ai-readiness-checklist-smes",
     title: "AI Readiness Checklist for SMEs: 10 Questions Before You Buy Software",
     seoTitle: "AI Readiness Checklist for SMEs | Rise Advisory",
-    metaDescription: "Evaluate whether your business data, team culture, and workflow architecture are ready for AI automation with this 10-point checklist.",
-    excerpt: "Avoid wasting money on AI tools that nobody uses. Assess clean data hygiene, process standardization, and high-ROI opportunities first.",
+    metaDescription:
+      "Evaluate whether your business data, team culture, and workflow architecture are ready for AI automation with this 10-point checklist.",
+    excerpt:
+      "Avoid wasting money on AI tools that nobody uses. Assess clean data hygiene, process standardization, and high-ROI opportunities first.",
     category: "Technology & AI",
     categorySlug: "technology-ai",
     author: "Leena Raval",
@@ -744,8 +801,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "how-to-get-business-loan-ahmedabad",
     title: "How to Get a Business Loan in Ahmedabad: Step-by-Step Bank Guide",
     seoTitle: "How to Get a Business Loan in Ahmedabad | Rise Advisory",
-    metaDescription: "Learn how Ahmedabad business owners apply for working capital and term loans, prepare CMA data, and navigate bank approval criteria.",
-    excerpt: "Navigate the bank application process in Ahmedabad: documents needed, banking norms, CIBIL benchmarks, and avoiding common loan rejection traps.",
+    metaDescription:
+      "Learn how Ahmedabad business owners apply for working capital and term loans, prepare CMA data, and navigate bank approval criteria.",
+    excerpt:
+      "Navigate the bank application process in Ahmedabad: documents needed, banking norms, CIBIL benchmarks, and avoiding common loan rejection traps.",
     category: "Business Loans & MSME",
     categorySlug: "business-loans-msme",
     author: "Leena Raval",
@@ -763,8 +822,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "documents-required-for-business-loan-india",
     title: "Documents Required for a Business Loan in India: Complete Checklist",
     seoTitle: "Documents Required for Business Loan India | Rise Advisory",
-    metaDescription: "Comprehensive checklist of KYC, financial, tax, and legal documents required by banks and NBFCs for MSME business loans.",
-    excerpt: "Ensure 100% documentation completeness before submitting loan files: ITRs, GST 3B reconciliations, audited balance sheets, and project reports.",
+    metaDescription:
+      "Comprehensive checklist of KYC, financial, tax, and legal documents required by banks and NBFCs for MSME business loans.",
+    excerpt:
+      "Ensure 100% documentation completeness before submitting loan files: ITRs, GST 3B reconciliations, audited balance sheets, and project reports.",
     category: "Business Loans & MSME",
     categorySlug: "business-loans-msme",
     author: "Leena Raval",
@@ -782,8 +843,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "business-loans-without-collateral-gujarat",
     title: "Business Loans Without Collateral in Gujarat: How CGTMSE Works",
     seoTitle: "Business Loans Without Collateral in Gujarat | Rise Advisory",
-    metaDescription: "How Gujarat MSMEs and manufacturers secure up to ₹5 Cr in collateral-free bank loans through the CGTMSE credit guarantee trust.",
-    excerpt: "Learn the eligibility criteria, eligible bank lenders, guarantee fee calculations, and application roadmap for collateral-free credit in Gujarat.",
+    metaDescription:
+      "How Gujarat MSMEs and manufacturers secure up to ₹5 Cr in collateral-free bank loans through the CGTMSE credit guarantee trust.",
+    excerpt:
+      "Learn the eligibility criteria, eligible bank lenders, guarantee fee calculations, and application roadmap for collateral-free credit in Gujarat.",
     category: "Business Loans & MSME",
     categorySlug: "business-loans-msme",
     author: "Leena Raval",
@@ -801,8 +864,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "bank-loan-readiness-checklist-smes",
     title: "Bank Loan Readiness Checklist for SMEs: Pass Credit Committee Review",
     seoTitle: "Bank Loan Readiness Checklist for SMEs | Rise Advisory",
-    metaDescription: "An internal credit officer's checklist: Debt-service coverage ratio (DSCR), current ratio, turnover velocity, and GST reconciliation tips.",
-    excerpt: "Score your business against the 12 credit risk metrics commercial bank underwriters evaluate before approving working capital limit increases.",
+    metaDescription:
+      "An internal credit officer's checklist: Debt-service coverage ratio (DSCR), current ratio, turnover velocity, and GST reconciliation tips.",
+    excerpt:
+      "Score your business against the 12 credit risk metrics commercial bank underwriters evaluate before approving working capital limit increases.",
     category: "Business Loans & MSME",
     categorySlug: "business-loans-msme",
     author: "Leena Raval",
@@ -820,8 +885,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "business-loan-vs-venture-capital-guide",
     title: "Business Loan vs Venture Capital: Which Is Right for Your Business?",
     seoTitle: "Business Loan vs Venture Capital: Decision Guide | Rise Advisory",
-    metaDescription: "Compare non-dilutive debt financing with equity venture capital. Evaluate dilution, governance control, repayment burdens, and growth models.",
-    excerpt: "Debt preserves equity but requires steady cash flow. Equity fuels high-burn innovation but demands board seats. How to choose the right capital mix.",
+    metaDescription:
+      "Compare non-dilutive debt financing with equity venture capital. Evaluate dilution, governance control, repayment burdens, and growth models.",
+    excerpt:
+      "Debt preserves equity but requires steady cash flow. Equity fuels high-burn innovation but demands board seats. How to choose the right capital mix.",
     category: "Startup Funding",
     categorySlug: "startup-funding",
     author: "Leena Raval",
@@ -839,8 +906,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "government-loan-schemes-msme-support-gujarat",
     title: "Government Loan Schemes and MSME Support in Gujarat: 2026 Directory",
     seoTitle: "Government Loan Schemes & MSME Subsidies Gujarat | Rise Advisory",
-    metaDescription: "Directory of central and Gujarat state government schemes including Mudra, Stand-Up India, PMEGP, and Gujarat Industrial Policy capital subsidies.",
-    excerpt: "Find applicable government loan schemes, interest subventions, machinery subsidies, and application guidelines for businesses in Gujarat.",
+    metaDescription:
+      "Directory of central and Gujarat state government schemes including Mudra, Stand-Up India, PMEGP, and Gujarat Industrial Policy capital subsidies.",
+    excerpt:
+      "Find applicable government loan schemes, interest subventions, machinery subsidies, and application guidelines for businesses in Gujarat.",
     category: "Business Loans & MSME",
     categorySlug: "business-loans-msme",
     author: "Leena Raval",
@@ -858,8 +927,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "building-90-day-growth-roadmap",
     title: "How to Build a 90-Day Business Growth Plan: The Rise Execution System",
     seoTitle: "How to Build a 90-Day Business Growth Plan | Rise Advisory",
-    metaDescription: "Learn how to map your primary operational constraint, set measurable weekly milestones, and execute with senior fractional leadership.",
-    excerpt: "Annual plans fail because they are too far away. Discover how 90-day execution sprints create institutional momentum and measurable revenue lift.",
+    metaDescription:
+      "Learn how to map your primary operational constraint, set measurable weekly milestones, and execute with senior fractional leadership.",
+    excerpt:
+      "Annual plans fail because they are too far away. Discover how 90-day execution sprints create institutional momentum and measurable revenue lift.",
     category: "Business Strategy",
     categorySlug: "business-strategy",
     author: "Leena Raval",
@@ -877,8 +948,10 @@ export const insightsArticles: InsightsArticle[] = [
     slug: "how-to-fix-founder-bottlenecks-operations",
     title: "How to Fix Founder Bottlenecks: Delegation, SOPs & Fractional COOs",
     seoTitle: "How to Fix Founder Bottlenecks in Growing SMEs | Rise Advisory",
-    metaDescription: "How founders transition from being chief problem solver to true CEO by installing standard operating procedures and fractional operational leadership.",
-    excerpt: "If every decision requires promoter sign-off, growth stalls. Here is how growing companies build delegated operating structures that run without founder burnout.",
+    metaDescription:
+      "How founders transition from being chief problem solver to true CEO by installing standard operating procedures and fractional operational leadership.",
+    excerpt:
+      "If every decision requires promoter sign-off, growth stalls. Here is how growing companies build delegated operating structures that run without founder burnout.",
     category: "Operations & HR",
     categorySlug: "operations-hr",
     author: "Leena Raval",
@@ -887,7 +960,10 @@ export const insightsArticles: InsightsArticle[] = [
     readTime: "8 min read",
     status: "draft",
     primaryKeyword: "fractional COO India",
-    secondaryKeywords: ["SOP consultant for SMEs", "business process improvement consultant Gujarat"],
+    secondaryKeywords: [
+      "SOP consultant for SMEs",
+      "business process improvement consultant Gujarat",
+    ],
     imageUrl: "/logo.png",
     imageAlt: "Founder delegation framework and RACI matrix",
     content: [],
@@ -913,7 +989,11 @@ export function getArticleBySlug(slug: string): InsightsArticle | undefined {
   return insightsArticles.find((a) => a.slug === slug);
 }
 
-export function getRelatedArticles(currentSlug: string, category: string, limit = 3): InsightsArticle[] {
+export function getRelatedArticles(
+  currentSlug: string,
+  category: string,
+  limit = 3,
+): InsightsArticle[] {
   const published = getAllPublishedArticles();
   const current = published.find((a) => a.slug === currentSlug);
 

@@ -34,3 +34,4 @@ dist-ssr
 # Temporary archives and folders
 *.zip
 roadmap_temp/
+fixed_files/

@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, CheckCircle2, Loader2, Calendar, ShieldCheck, AlertCircle, Copy, Check } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Loader2,
+  Calendar,
+  ShieldCheck,
+  AlertCircle,
+  Copy,
+  Check,
+} from "lucide-react";
 import { captureUtms, getUtms, track } from "@/lib/track";
 import { Link } from "@tanstack/react-router";
 
@@ -10,7 +19,7 @@ const INDUSTRIES = [
   "SaaS & Technology",
   "Professional Services & Agencies",
   "Manufacturing & Industrial",
-  "Other"
+  "Other",
 ];
 
 const STAGES = [
@@ -18,7 +27,7 @@ const STAGES = [
   "Funded Startup (Seed / Series A)",
   "Growing SME (₹2 Cr – ₹10 Cr)",
   "Established Business (₹10 Cr – ₹50 Cr)",
-  "Scaling Enterprise (₹50 Cr – ₹100 Cr+)"
+  "Scaling Enterprise (₹50 Cr – ₹100 Cr+)",
 ];
 
 const REVENUE_BANDS = [
@@ -26,7 +35,7 @@ const REVENUE_BANDS = [
   "₹2 Crore – ₹10 Crore",
   "₹10 Crore – ₹25 Crore",
   "₹25 Crore – ₹100 Crore",
-  "₹100 Crore+"
+  "₹100 Crore+",
 ];
 
 const CHALLENGES = [
@@ -36,7 +45,7 @@ const CHALLENGES = [
   "Cash Flow Visibility & Working Capital",
   "Dev Team Velocity / Tech Stack & AI",
   "SOP Documentation & Delivery Chaos",
-  "Preparing for Funding / Investor Readiness"
+  "Preparing for Funding / Investor Readiness",
 ];
 
 const SERVICES_OF_INTEREST = [
@@ -45,14 +54,14 @@ const SERVICES_OF_INTEREST = [
   "Fractional CXO Retainer (CFO / CMO / CTO / COO)",
   "Rise Growth Pod (Cross-Functional)",
   "Expert Power Session (60-90 Min)",
-  "Executive Workshop / Team Program"
+  "Executive Workshop / Team Program",
 ];
 
 const URGENCIES = [
   "Immediate (Within 2 weeks)",
   "This Quarter (30–60 days)",
   "Planning Stage (Next Quarter)",
-  "Exploratory"
+  "Exploratory",
 ];
 
 const BUDGET_RANGES = [
@@ -60,10 +69,16 @@ const BUDGET_RANGES = [
   "₹75,000 – ₹2 Lakh / month",
   "₹2 Lakh – ₹5 Lakh / month (Execution Sprint)",
   "₹5 Lakh+ / month (Full Growth Pod)",
-  "To be determined based on scope"
+  "To be determined based on scope",
 ];
 
-export function LeadForm({ defaultService }: { defaultService?: string }) {
+export function LeadForm({
+  defaultService,
+  compact,
+}: {
+  defaultService?: string;
+  compact?: boolean;
+}) {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [enquiryId, setEnquiryId] = useState("");
@@ -111,8 +126,10 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
     }
     if (!formData.companyName.trim()) newErrors.companyName = "Company name is required";
     if (!formData.industry) newErrors.industry = "Please select your industry";
-    if (!formData.primaryChallenge) newErrors.primaryChallenge = "Please select your primary challenge";
-    if (!formData.privacyConsent) newErrors.privacyConsent = "Consent to privacy policy is required";
+    if (!formData.primaryChallenge)
+      newErrors.primaryChallenge = "Please select your primary challenge";
+    if (!formData.privacyConsent)
+      newErrors.privacyConsent = "Consent to privacy policy is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -169,7 +186,9 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
       setSubmitted(true);
     } catch (err: any) {
       console.error("Submission error:", err);
-      setError("An unexpected error occurred while transmitting your enquiry. Please reach us directly via WhatsApp or phone.");
+      setError(
+        "An unexpected error occurred while transmitting your enquiry. Please reach us directly via WhatsApp or phone.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -194,7 +213,10 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           <span className="badge-gold text-[10px]">Enquiry Confirmed</span>
           <h3 className="text-2xl font-extrabold text-[#0F1E2F]">Diagnostic Request Received</h3>
           <p className="text-xs text-[#53637C] max-w-md mx-auto leading-relaxed">
-            Thank you, <strong className="text-[#0F1E2F]">{formData.fullName}</strong>. Your consultation request for <strong className="text-[#0F1E2F]">{formData.companyName}</strong> has been logged in our executive advisory queue.
+            Thank you, <strong className="text-[#0F1E2F]">{formData.fullName}</strong>. Your
+            consultation request for{" "}
+            <strong className="text-[#0F1E2F]">{formData.companyName}</strong> has been logged in
+            our executive advisory queue.
           </p>
         </div>
 
@@ -212,10 +234,21 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
         </div>
 
         <div className="bg-[#EEF4FA] p-5 rounded-xl border border-[#E2E8F0] max-w-lg mx-auto text-left text-xs space-y-2 text-[#53637C]">
-          <div className="font-bold text-[#B8860B] uppercase text-[10px] tracking-wider">Next Steps:</div>
-          <p>&bull; An engagement lead will review your company stage ({formData.industry}) and constraint baseline within 24 hours.</p>
-          <p>&bull; You will receive a calendar invitation for the 90-minute Growth Diagnostic at <strong className="text-[#0F1E2F]">{formData.businessEmail}</strong>.</p>
-          <p>&bull; For urgent priority inquiries, connect directly with our founder's desk on WhatsApp.</p>
+          <div className="font-bold text-[#B8860B] uppercase text-[10px] tracking-wider">
+            Next Steps:
+          </div>
+          <p>
+            &bull; An engagement lead will review your company stage ({formData.industry}) and
+            constraint baseline within 24 hours.
+          </p>
+          <p>
+            &bull; You will receive a calendar invitation for the 90-minute Growth Diagnostic at{" "}
+            <strong className="text-[#0F1E2F]">{formData.businessEmail}</strong>.
+          </p>
+          <p>
+            &bull; For urgent priority inquiries, connect directly with our founder's desk on
+            WhatsApp.
+          </p>
         </div>
 
         <div className="pt-2 flex flex-wrap justify-center gap-3">
@@ -240,12 +273,17 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm p-6 sm:p-8 space-y-6" noValidate>
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm p-6 sm:p-8 space-y-6"
+      noValidate
+    >
       <div>
         <span className="badge-gold text-[10px] mb-2">100% Confidential</span>
         <h3 className="text-2xl font-bold text-[#0F1E2F]">Book a 90-Minute Business Review</h3>
         <p className="text-xs text-[#53637C] mt-1">
-          Tell us a little about your business and goals. We will review your note and arrange your private review session.
+          Tell us a little about your business and goals. We will review your note and arrange your
+          private review session.
         </p>
       </div>
 
@@ -268,8 +306,9 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
             value={formData.fullName}
             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
             placeholder="e.g. Rahul Sharma"
-            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${errors.fullName ? "border-[#EF4444]" : "border-[#E2E8F0]"
-              }`}
+            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${
+              errors.fullName ? "border-[#EF4444]" : "border-[#E2E8F0]"
+            }`}
           />
           {errors.fullName && <p className="text-[10px] text-[#EF4444] mt-1">{errors.fullName}</p>}
         </div>
@@ -284,10 +323,13 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
             value={formData.businessEmail}
             onChange={(e) => setFormData({ ...formData, businessEmail: e.target.value })}
             placeholder="name@company.com"
-            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${errors.businessEmail ? "border-[#EF4444]" : "border-[#E2E8F0]"
-              }`}
+            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${
+              errors.businessEmail ? "border-[#EF4444]" : "border-[#E2E8F0]"
+            }`}
           />
-          {errors.businessEmail && <p className="text-[10px] text-[#EF4444] mt-1">{errors.businessEmail}</p>}
+          {errors.businessEmail && (
+            <p className="text-[10px] text-[#EF4444] mt-1">{errors.businessEmail}</p>
+          )}
         </div>
       </div>
 
@@ -303,8 +345,9 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             placeholder="+91 98765 43210"
-            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${errors.phone ? "border-[#EF4444]" : "border-[#E2E8F0]"
-              }`}
+            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${
+              errors.phone ? "border-[#EF4444]" : "border-[#E2E8F0]"
+            }`}
           />
           {errors.phone && <p className="text-[10px] text-[#EF4444] mt-1">{errors.phone}</p>}
         </div>
@@ -319,10 +362,13 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
             value={formData.companyName}
             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
             placeholder="e.g. Apex Industries Pvt Ltd"
-            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${errors.companyName ? "border-[#EF4444]" : "border-[#E2E8F0]"
-              }`}
+            className={`w-full rounded-lg bg-white border px-3.5 py-2.5 text-xs text-[#0F1E2F] placeholder-[#53637C]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] transition-colors ${
+              errors.companyName ? "border-[#EF4444]" : "border-[#E2E8F0]"
+            }`}
           />
-          {errors.companyName && <p className="text-[10px] text-[#EF4444] mt-1">{errors.companyName}</p>}
+          {errors.companyName && (
+            <p className="text-[10px] text-[#EF4444] mt-1">{errors.companyName}</p>
+          )}
         </div>
       </div>
 
@@ -348,12 +394,15 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           <select
             value={formData.industry}
             onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-            className={`w-full rounded-lg bg-white border px-3 py-2.5 text-xs text-[#0F1E2F] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] ${errors.industry ? "border-[#EF4444]" : "border-[#E2E8F0]"
-              }`}
+            className={`w-full rounded-lg bg-white border px-3 py-2.5 text-xs text-[#0F1E2F] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] ${
+              errors.industry ? "border-[#EF4444]" : "border-[#E2E8F0]"
+            }`}
           >
             <option value="">Select Industry</option>
             {INDUSTRIES.map((ind) => (
-              <option key={ind} value={ind}>{ind}</option>
+              <option key={ind} value={ind}>
+                {ind}
+              </option>
             ))}
           </select>
           {errors.industry && <p className="text-[10px] text-[#EF4444] mt-1">{errors.industry}</p>}
@@ -371,7 +420,9 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           >
             <option value="">Select Stage</option>
             {STAGES.map((s) => (
-              <option key={s} value={s}>{s}</option>
+              <option key={s} value={s}>
+                {s}
+              </option>
             ))}
           </select>
         </div>
@@ -387,7 +438,9 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           >
             <option value="">Select Revenue Band</option>
             {REVENUE_BANDS.map((rb) => (
-              <option key={rb} value={rb}>{rb}</option>
+              <option key={rb} value={rb}>
+                {rb}
+              </option>
             ))}
           </select>
         </div>
@@ -402,19 +455,26 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           <select
             value={formData.primaryChallenge}
             onChange={(e) => setFormData({ ...formData, primaryChallenge: e.target.value })}
-            className={`w-full rounded-lg bg-white border px-3 py-2.5 text-xs text-[#0F1E2F] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] ${errors.primaryChallenge ? "border-[#EF4444]" : "border-[#E2E8F0]"
-              }`}
+            className={`w-full rounded-lg bg-white border px-3 py-2.5 text-xs text-[#0F1E2F] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B] ${
+              errors.primaryChallenge ? "border-[#EF4444]" : "border-[#E2E8F0]"
+            }`}
           >
             <option value="">Select Primary Constraint</option>
             {CHALLENGES.map((ch) => (
-              <option key={ch} value={ch}>{ch}</option>
+              <option key={ch} value={ch}>
+                {ch}
+              </option>
             ))}
           </select>
-          {errors.primaryChallenge && <p className="text-[10px] text-[#EF4444] mt-1">{errors.primaryChallenge}</p>}
+          {errors.primaryChallenge && (
+            <p className="text-[10px] text-[#EF4444] mt-1">{errors.primaryChallenge}</p>
+          )}
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-[#0F1E2F] mb-1.5">Service of Interest</label>
+          <label className="block text-xs font-semibold text-[#0F1E2F] mb-1.5">
+            Service of Interest
+          </label>
           <select
             value={formData.serviceInterest}
             onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
@@ -422,7 +482,9 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           >
             <option value="">Select Service / Offer</option>
             {SERVICES_OF_INTEREST.map((srv) => (
-              <option key={srv} value={srv}>{srv}</option>
+              <option key={srv} value={srv}>
+                {srv}
+              </option>
             ))}
           </select>
         </div>
@@ -431,20 +493,26 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
       {/* Row 6: Urgency & Budget */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-semibold text-[#0F1E2F] mb-1.5">Urgency / Timeline</label>
+          <label className="block text-xs font-semibold text-[#0F1E2F] mb-1.5">
+            Urgency / Timeline
+          </label>
           <select
             value={formData.urgency}
             onChange={(e) => setFormData({ ...formData, urgency: e.target.value })}
             className="w-full rounded-lg bg-white border border-[#E2E8F0] px-3 py-2.5 text-xs text-[#0F1E2F] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]"
           >
             {URGENCIES.map((u) => (
-              <option key={u} value={u}>{u}</option>
+              <option key={u} value={u}>
+                {u}
+              </option>
             ))}
           </select>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-[#0F1E2F] mb-1.5">Target Budget Range</label>
+          <label className="block text-xs font-semibold text-[#0F1E2F] mb-1.5">
+            Target Budget Range
+          </label>
           <select
             value={formData.budgetRange}
             onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
@@ -452,7 +520,9 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           >
             <option value="">Select Budget Fit</option>
             {BUDGET_RANGES.map((b) => (
-              <option key={b} value={b}>{b}</option>
+              <option key={b} value={b}>
+                {b}
+              </option>
             ))}
           </select>
         </div>
@@ -470,7 +540,8 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
           className="w-full rounded-lg bg-white border border-[#E2E8F0] px-3.5 py-2.5 text-xs text-[#0F1E2F] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]"
         />
         <p className="text-[11px] text-[#53637C] mt-1">
-          *Note: Submitting a requested date does not confirm the consultation until our engagement desk confirms availability.
+          *Note: Submitting a requested date does not confirm the consultation until our engagement
+          desk confirms availability.
         </p>
       </div>
 

@@ -12,9 +12,19 @@ export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Insights & Strategic Intelligence | Rise Advisory" },
-      { name: "description", content: "Field notes and operational frameworks from Rise Advisory fractional CXOs across Growth, Finance, Technology, Operations, and Leadership." },
-      { property: "og:title", content: "Rise Advisory Insights — Growth, Finance, Tech & Operations" },
-      { property: "og:description", content: "Sharp takes on strategy and execution across five core business scale pillars." },
+      {
+        name: "description",
+        content:
+          "Field notes and operational frameworks from Rise Advisory fractional CXOs across Growth, Finance, Technology, Operations, and Leadership.",
+      },
+      {
+        property: "og:title",
+        content: "Rise Advisory Insights — Growth, Finance, Tech & Operations",
+      },
+      {
+        property: "og:description",
+        content: "Sharp takes on strategy and execution across five core business scale pillars.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://riseadvisory.co/blog" }],
   }),
@@ -28,7 +38,8 @@ export function BlogIndex() {
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return blogPosts.filter((p) => {
-      const topicMatch = topic === "all" || topics.find((t) => t.slug === topic)?.pillar === p.pillar;
+      const topicMatch =
+        topic === "all" || topics.find((t) => t.slug === topic)?.pillar === p.pillar;
       if (!topicMatch) return false;
       if (!needle) return true;
       return (
@@ -45,7 +56,7 @@ export function BlogIndex() {
     <SiteLayout>
       {/* Premium Navy Hero with White Accent Gradient */}
       <section className="relative overflow-hidden bg-[#0B1F3B] py-20 md:py-28 navy-diagonal-texture border-b border-[#E2E8F0]/10">
-        <div 
+        <div
           className="pointer-events-none absolute inset-0 opacity-15"
           style={{ background: "linear-gradient(115deg, #0B1F3B 0%, #132F55 48%, #FFFFFF 100%)" }}
           aria-hidden="true"
@@ -63,7 +74,9 @@ export function BlogIndex() {
               </span>
             </h1>
             <p className="mt-4 text-base sm:text-lg text-[#EEF4FA]/80 leading-relaxed">
-              Field notes, operational blueprints, and governance principles authored by our senior fractional CXOs and practice leads. No vanity theories—only frameworks you can deploy Monday morning.
+              Field notes, operational blueprints, and governance principles authored by our senior
+              fractional CXOs and practice leads. No vanity theories—only frameworks you can deploy
+              Monday morning.
             </p>
           </div>
         </div>
@@ -94,7 +107,7 @@ export function BlogIndex() {
                     : "bg-[#EEF4FA] text-[#53637C] hover:text-[#0F1E2F] hover:bg-[#E2E8F0]"
                 }`}
               >
-                {t.name}
+                {t.label}
               </button>
             ))}
           </div>
@@ -131,7 +144,11 @@ export function BlogIndex() {
                 <div>
                   <span className="badge-gold mb-3">{hero.category}</span>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1E2F] leading-tight">
-                    <Link to="/blog/$slug" params={{ slug: hero.slug }} className="hover:text-[#B8860B] transition-colors">
+                    <Link
+                      to="/blog/$slug"
+                      params={{ slug: hero.slug }}
+                      className="hover:text-[#B8860B] transition-colors"
+                    >
                       {hero.title}
                     </Link>
                   </h2>
@@ -146,7 +163,7 @@ export function BlogIndex() {
                     <span>&bull;</span>
                     <span className="flex items-center gap-1">
                       <Clock className="h-3.5 w-3.5 text-[#53637C]" />
-                      {hero.readTime}
+                      {hero.readingTime}
                     </span>
                   </div>
                   <div className="mt-6">
@@ -162,9 +179,15 @@ export function BlogIndex() {
                 </div>
 
                 <div className="bg-[#EEF4FA] rounded-xl p-8 border border-[#E2E8F0] flex flex-col justify-center min-h-[240px] text-center">
-                  <span className="text-[10px] font-mono font-bold text-[#B8860B] uppercase tracking-wider">Executive Intelligence Brief</span>
-                  <div className="text-lg font-extrabold text-[#0F1E2F] mt-2 max-w-md mx-auto">{hero.title}</div>
-                  <p className="text-xs text-[#53637C] mt-2">Published under the Rise Delivery Method</p>
+                  <span className="text-[10px] font-mono font-bold text-[#B8860B] uppercase tracking-wider">
+                    Executive Intelligence Brief
+                  </span>
+                  <div className="text-lg font-extrabold text-[#0F1E2F] mt-2 max-w-md mx-auto">
+                    {hero.title}
+                  </div>
+                  <p className="text-xs text-[#53637C] mt-2">
+                    Published under the Rise Delivery Method
+                  </p>
                 </div>
               </div>
             </div>
@@ -181,7 +204,7 @@ export function BlogIndex() {
                 <div>
                   <div className="flex items-center justify-between text-xs mb-3">
                     <span className="badge-gold text-[10px]">{post.category}</span>
-                    <span className="text-[#53637C] text-[11px]">{post.readTime}</span>
+                    <span className="text-[#53637C] text-[11px]">{post.readingTime}</span>
                   </div>
 
                   <h3 className="text-lg font-bold text-[#0F1E2F] group-hover:text-[#B8860B] transition-colors leading-snug mb-2">
@@ -221,7 +244,9 @@ export function BlogIndex() {
               Have a Strategic Bottleneck in Your Business?
             </h2>
             <p className="mt-4 text-sm sm:text-base text-[#53637C] leading-relaxed">
-              Schedule a confidential 90-minute Growth Diagnostic. We evaluate your revenue channels, financial runway, and operational dependencies to produce your 90-day action note.
+              Schedule a confidential 90-minute Growth Diagnostic. We evaluate your revenue
+              channels, financial runway, and operational dependencies to produce your 90-day action
+              note.
             </p>
             <div className="mt-8">
               <Link to="/book-diagnostic" className="btn-gold inline-flex items-center gap-2">
