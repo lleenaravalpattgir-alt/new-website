@@ -35,4 +35,3 @@ dist-ssr
 *.zip
 roadmap_temp/
 fixed_files/
-package-lock.json
