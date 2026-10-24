@@ -44,7 +44,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Rise Advisory connects growing businesses with fractional CXOs and vetted specialists across growth, finance, technology, people, and operations—combining senior leadership, hands-on execution, and measurable milestones.",
+          "Rise Advisory connects growing businesses with fractional CXOs across Growth, Finance, Tech, and Operations for measurable 90-day execution sprints.",
       },
       { property: "og:title", content: "Build Your Next Stage Without Hiring an Entire C-Suite | Rise Advisory" },
       {
@@ -53,6 +53,7 @@ export const Route = createFileRoute("/")({
           "Embed fractional CXOs and vetted specialists into your business. Senior leadership and measurable 90-day execution sprints.",
       },
       { property: "og:url", content: "https://ryzeadvisory.co/" },
+      { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
     ],
     links: [{ rel: "canonical", href: "https://ryzeadvisory.co/" }],
   }),
@@ -1286,7 +1287,7 @@ function IndexPage() {
                       <span className="text-[#6B7A99]">{article.readTime}</span>
                     </div>
                     <h4 className="text-lg font-bold text-[#0F1E2F] group-hover:text-[#B8860B] transition-colors line-clamp-2 leading-snug font-display">
-                      <Link to="/blog/$slug" params={{ slug: article.slug }}>
+                      <Link to="/insights/$slug" params={{ slug: article.slug }}>
                         {article.title}
                       </Link>
                     </h4>
@@ -1298,7 +1299,7 @@ function IndexPage() {
                   <div className="pt-6 mt-6 border-t border-[#E2E8F0] flex items-center justify-between text-xs">
                     <span className="text-[#6B7A99]">{article.publishedDate}</span>
                     <Link
-                      to="/blog/$slug"
+                      to="/insights/$slug"
                       params={{ slug: article.slug }}
                       className="text-[#B8860B] font-bold group-hover:underline flex items-center gap-1"
                     >

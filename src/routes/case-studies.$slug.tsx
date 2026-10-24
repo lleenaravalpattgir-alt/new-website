@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { caseStudiesData, type CaseStudy } from "@/data/caseStudiesData";
 import { caseStudies } from "@/data/caseStudies";
-import { buildCanonical, ORG_NAME } from "@/lib/seo";
+import { buildCanonical, buildDescription, buildTitle, ORG_NAME } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, AlertTriangle, ShieldCheck, Calendar, Clock, Sparkles, ChevronRight } from "lucide-react";
 
 function findCaseStudy(slug: string): CaseStudy | undefined {
@@ -118,12 +118,22 @@ export const Route = createFileRoute("/case-studies/$slug")({
       ],
     };
 
+    const description = buildDescription(cs.initialProblem);
+    const title = buildTitle(cs.title);
+
     return {
       meta: [
-        { title: `${cs.title} | Case Study | Rise Advisory` },
-        { name: "description", content: cs.initialProblem },
-        { property: "og:title", content: `${cs.title} | Rise Advisory` },
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "article" },
         { property: "og:url", content: canonicalUrl },
+        { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: "https://ryzeadvisory.co/logo.png" },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [

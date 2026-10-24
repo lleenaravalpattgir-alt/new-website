@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { industriesData } from "@/data/industriesData";
-import { buildCanonical } from "@/lib/seo";
+import { buildCanonical, buildTitle, buildDescription } from "@/lib/seo";
 import {
   ArrowRight,
   CheckCircle2,
@@ -31,13 +31,20 @@ export const Route = createFileRoute("/industries/$slug")({
     const ind = findIndustry(params.slug);
     if (!ind) return { meta: [{ title: "Industry Solution Not Found | Rise Advisory" }] };
     const canonicalUrl = buildCanonical(`/industries/${ind.slug}`);
+    const title = buildTitle(`${ind.shortTitle || ind.title} Advisory`);
+    const description = buildDescription(ind.summary);
     return {
       meta: [
-        { title: `${ind.title} Advisory Solutions | Rise Advisory` },
-        { name: "description", content: ind.headline },
-        { property: "og:title", content: `${ind.title} | Rise Advisory` },
-        { property: "og:description", content: ind.summary },
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:url", content: canonicalUrl },
+        { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: "https://ryzeadvisory.co/logo.png" },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
     };

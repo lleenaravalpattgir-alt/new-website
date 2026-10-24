@@ -9,7 +9,7 @@ import { EcosystemGrid } from "@/components/site/EcosystemGrid";
 import { getService, services, type Service } from "@/data/services";
 import { blogPosts } from "@/data/blog";
 import { CheckCircle2, ArrowUpRight, AlertTriangle, BookOpen } from "lucide-react";
-import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, toAbsoluteUrl } from "@/lib/seo";
 import ogDefault from "@/assets/og-default.jpg";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
@@ -127,11 +127,11 @@ export const Route = createFileRoute("/services/$slug")({
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: canonicalUrl },
-        { property: "og:image", content: ogDefault },
+        { property: "og:image", content: toAbsoluteUrl(ogDefault) },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: ogDefault },
+        { name: "twitter:image", content: toAbsoluteUrl(ogDefault) },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [{

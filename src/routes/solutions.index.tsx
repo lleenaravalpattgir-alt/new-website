@@ -8,9 +8,11 @@ export const Route = createFileRoute("/solutions/")({
   head: () => ({
     meta: [
       { title: "Solutions & Strategic Pillars | Rise Advisory" },
-      { name: "description", content: "Explore the five strategic pillars of Rise Advisory: Growth & Revenue, Finance & Capital Readiness, Technology & AI, People & Operations, and Founder Performance." },
+      { name: "description", content: "Explore the 5 strategic pillars of Rise Advisory: Growth & Revenue, Finance & Capital, Technology & AI, People & Operations, and Founder Performance." },
       { property: "og:title", content: "Solutions & Strategic Pillars | Rise Advisory" },
+      { property: "og:description", content: "Explore the 5 strategic pillars of Rise Advisory: Growth & Revenue, Finance & Capital, Technology & AI, People & Operations, and Founder Performance." },
       { property: "og:url", content: "https://ryzeadvisory.co/solutions" },
+      { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
     ],
     links: [{ rel: "canonical", href: "https://ryzeadvisory.co/solutions" }],
   }),

@@ -4,6 +4,17 @@ export const SITE_NAME = "Rise Advisory";
 export const ORG_NAME = "Rise Advisory";
 export const ORG_LOGO = "/logo.png"; // resolved from public/ at runtime
 export const SITE_URL = "https://ryzeadvisory.co";
+export const ABSOLUTE_ORG_LOGO = `${SITE_URL}/logo.png`;
+
+/**
+ * Converts any relative path or image asset into a fully qualified HTTPS URL.
+ */
+export function toAbsoluteUrl(urlOrPath: string = "/"): string {
+  if (!urlOrPath) return ABSOLUTE_ORG_LOGO;
+  if (/^https?:\/\//i.test(urlOrPath)) return urlOrPath;
+  const cleanPath = urlOrPath.startsWith("/") ? urlOrPath : `/${urlOrPath}`;
+  return `${SITE_URL}${cleanPath}`;
+}
 
 /**
  * Builds an absolute, HTTPS, normalized canonical URL for ryzeadvisory.co.

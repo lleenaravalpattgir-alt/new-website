@@ -30,7 +30,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, toAbsoluteUrl, ABSOLUTE_ORG_LOGO } from "@/lib/seo";
 
 export const Route = createFileRoute("/insights/$slug")({
   loader: ({ params }) => {
@@ -121,12 +121,13 @@ export const Route = createFileRoute("/insights/$slug")({
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonicalUrl },
-        { property: "og:image", content: a.imageUrl || "/logo.png" },
+        { property: "og:image", content: toAbsoluteUrl(a.imageUrl || "/logo.png") },
         { property: "article:published_time", content: a.publishedDate },
         { property: "article:section", content: a.category },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: pageTitle },
         { name: "twitter:description", content: description },
+        { name: "twitter:image", content: toAbsoluteUrl(a.imageUrl || "/logo.png") },
         { name: "keywords", content: [a.primaryKeyword, ...a.secondaryKeywords].join(", ") },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
@@ -142,7 +143,7 @@ export const Route = createFileRoute("/insights/$slug")({
             dateModified: a.updatedDate || a.publishedDate,
             articleSection: a.category,
             keywords: [a.primaryKeyword, ...a.secondaryKeywords].join(", "),
-            image: "https://ryzeadvisory.co/logo.png",
+            image: toAbsoluteUrl(a.imageUrl || "/logo.png"),
             mainEntityOfPage: canonicalUrl,
             author: {
               "@type": "Person",
@@ -153,7 +154,7 @@ export const Route = createFileRoute("/insights/$slug")({
             publisher: {
               "@type": "Organization",
               name: ORG_NAME,
-              logo: { "@type": "ImageObject", url: ORG_LOGO },
+              logo: { "@type": "ImageObject", url: ABSOLUTE_ORG_LOGO },
             },
           }),
         },

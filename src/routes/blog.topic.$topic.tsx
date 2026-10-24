@@ -6,7 +6,7 @@ import { CTAButton } from "@/components/site/CTAButton";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { topicBySlug, postsForTopic, topics } from "@/data/blogTopics";
 import type { BlogPost } from "@/data/blog";
-import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, ABSOLUTE_ORG_LOGO } from "@/lib/seo";
 import { track } from "@/lib/track";
 
 const PAGE_SIZE = 9;
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/blog/topic/$topic")({
       name: `${t.label} — RYZE Advisory Insights`,
       description,
       url: canonicalUrl,
-      publisher: { "@type": "Organization", name: ORG_NAME, logo: { "@type": "ImageObject", url: ORG_LOGO } },
+      publisher: { "@type": "Organization", name: ORG_NAME, logo: { "@type": "ImageObject", url: ABSOLUTE_ORG_LOGO } },
     };
     return {
       meta: [
@@ -44,6 +44,11 @@ export const Route = createFileRoute("/blog/topic/$topic")({
         { property: "og:description", content: description },
         { property: "og:url", content: canonicalUrl },
         { property: "og:type", content: "website" },
+        { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: "https://ryzeadvisory.co/logo.png" },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [

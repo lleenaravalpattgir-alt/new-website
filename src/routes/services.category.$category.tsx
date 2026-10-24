@@ -4,7 +4,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { LeadForm } from "@/components/site/LeadForm";
 import { CTAButton } from "@/components/site/CTAButton";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
-import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, ABSOLUTE_ORG_LOGO } from "@/lib/seo";
 import { ArrowUpRight } from "lucide-react";
 import { track } from "@/lib/track";
 import type { Service } from "@/data/services";
@@ -41,6 +41,11 @@ export const Route = createFileRoute("/services/category/$category")({
         { property: "og:description", content: description },
         { property: "og:url", content: canonicalUrl },
         { property: "og:type", content: "website" },
+        { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: "https://ryzeadvisory.co/logo.png" },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
@@ -52,7 +57,7 @@ export const Route = createFileRoute("/services/category/$category")({
             name: `${t.label} — RYZE Advisory Services & Insights`,
             description,
             url: canonicalUrl,
-            publisher: { "@type": "Organization", name: ORG_NAME, logo: { "@type": "ImageObject", url: ORG_LOGO } },
+            publisher: { "@type": "Organization", name: ORG_NAME, logo: { "@type": "ImageObject", url: ABSOLUTE_ORG_LOGO } },
           }),
         },
       ],

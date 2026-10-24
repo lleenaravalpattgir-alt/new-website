@@ -623,7 +623,7 @@ export const insightsArticles: InsightsArticle[] = [
       description:
         "Explore collateral-free bank loans, Gujarat state subsidy calculators, and document checklists.",
     },
-    relatedSlugs: ["fractional-cfo-vs-full-time-cfo"],
+    relatedSlugs: ["fractional-cfo-vs-full-time-cfo", "ai-automation-guide-small-businesses"],
   },
   {
     slug: "ai-automation-guide-small-businesses",
@@ -757,7 +757,7 @@ export const insightsArticles: InsightsArticle[] = [
     title: "How to Professionalise a Family Business: Governance, Succession & Modern MIS",
     seoTitle: "How to Professionalise a Family Business in India | Rise Advisory",
     metaDescription:
-      "Guide for promoter-led family businesses in Gujarat on creating board governance, succession planning, delegating to non-family executives, and installing automated MIS.",
+      "Guide for family businesses in Gujarat on creating board governance, succession planning, delegating to non-family executives, and installing automated MIS.",
     excerpt:
       "Transition from promoter dependency to professional governance and institutional systems while protecting core family values and legacy.",
     category: "Family Business",

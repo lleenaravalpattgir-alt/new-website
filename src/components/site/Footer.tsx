@@ -39,6 +39,8 @@ const resourceLinks = [
   { to: "/experts", label: "Vetted Expert Bench" },
   { to: "/resources", label: "Resource Library & Tools" },
   { to: "/resources/cost-calculator", label: "Fractional Cost Calculator" },
+  { to: "/resources/founder-dependency-diagnostic", label: "Founder Dependency Diagnostic" },
+  { to: "/resources/growth-constraint-map", label: "Growth Constraint Map" },
   { to: "/resources/templates", label: "Executive Templates" },
   { to: "/prompts", label: "Tactical AI Prompts Library" },
   { to: "/business-funding", label: "Business Loans & Startup Funding (Gujarat)" },

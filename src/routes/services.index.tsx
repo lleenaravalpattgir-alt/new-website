@@ -11,11 +11,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/services/")({
   head: () => ({
     meta: [
-      { title: "Services — RYZE Advisory" },
-      { name: "description", content: "The RYZE service architecture: targeted solutions across AI, Branding, HR, and Talent." },
-      { property: "og:title", content: "Services — RYZE Advisory" },
-      { property: "og:description", content: "Targeted solutions across AI, Branding, HR, and Talent." },
+      { title: "Services & Solutions Architecture | Rise Advisory" },
+      { name: "description", content: "Explore the Rise Advisory service architecture: targeted solutions across AI automation, brand systems, executive search, and modern HR architecture." },
+      { property: "og:title", content: "Services & Solutions Architecture | Rise Advisory" },
+      { property: "og:description", content: "Explore the Rise Advisory service architecture: targeted solutions across AI automation, brand systems, executive search, and modern HR architecture." },
       { property: "og:url", content: "https://ryzeadvisory.co/services" },
+      { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
     ],
     links: [{ rel: "canonical", href: "https://ryzeadvisory.co/services" }],
   }),

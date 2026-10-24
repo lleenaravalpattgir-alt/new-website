@@ -6,7 +6,7 @@ import { getPost, blogPosts, type BlogPost } from "@/data/blog";
 import { getArticleBySlug } from "@/data/insightsArticles";
 import { services } from "@/data/services";
 import { ArrowUpRight, ArrowRight, Calendar, Clock, User, Sparkles, HelpCircle } from "lucide-react";
-import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, toAbsoluteUrl, ABSOLUTE_ORG_LOGO } from "@/lib/seo";
 import ogDefault from "@/assets/og-default.jpg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
@@ -59,13 +59,13 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonicalUrl },
-        { property: "og:image", content: ogDefault },
+        { property: "og:image", content: toAbsoluteUrl(ogDefault) },
         { property: "article:published_time", content: p.date },
         { property: "article:section", content: p.category },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: ogDefault },
+        { name: "twitter:image", content: toAbsoluteUrl(ogDefault) },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
@@ -80,13 +80,13 @@ export const Route = createFileRoute("/blog/$slug")({
             dateModified: p.date,
             articleSection: p.category,
             keywords: [p.pillar, p.category, "AI Automation", "AI Strategy", "Agency Efficiency"].join(", "),
-            image: ogDefault,
+            image: toAbsoluteUrl(ogDefault),
             mainEntityOfPage: canonicalUrl,
             author: { "@type": "Person", name: p.author, url: buildCanonical("/about/author") },
             publisher: {
               "@type": "Organization",
               name: ORG_NAME,
-              logo: { "@type": "ImageObject", url: ORG_LOGO },
+              logo: { "@type": "ImageObject", url: ABSOLUTE_ORG_LOGO },
             },
           }),
         },

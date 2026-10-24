@@ -6,9 +6,11 @@ export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy | Rise Advisory" },
-      { name: "description", content: "Privacy policy and data protection commitments of Rise Advisory." },
+      { name: "description", content: "Read the official Privacy Policy of Rise Advisory. Learn how we handle, process, and protect your data across our fractional advisory and consulting services." },
       { property: "og:title", content: "Privacy Policy | Rise Advisory" },
+      { property: "og:description", content: "Read the official Privacy Policy of Rise Advisory. Learn how we handle, process, and protect your data across our fractional advisory and consulting services." },
       { property: "og:url", content: "https://ryzeadvisory.co/privacy-policy" },
+      { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
     ],
     links: [{ rel: "canonical", href: "https://ryzeadvisory.co/privacy-policy" }],
   }),

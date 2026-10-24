@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { fractionalLeadersData } from "@/data/fractionalLeadersData";
-import { buildCanonical } from "@/lib/seo";
+import { buildCanonical, buildDescription } from "@/lib/seo";
 import {
   ArrowRight,
   CheckCircle2,
@@ -29,13 +29,21 @@ export const Route = createFileRoute("/fractional-leaders/$slug")({
     );
     if (!leader) return { meta: [{ title: "Leader Role Not Found | Rise Advisory" }] };
     const canonicalUrl = buildCanonical(`/fractional-leaders/${leader.slug}`);
+    const metaDescription = buildDescription(
+      leader.description || `${leader.tagline} Embed seasoned fractional executive leadership to drive measurable 90-day outcomes.`
+    );
     return {
       meta: [
         { title: `${leader.title} | Rise Advisory` },
-        { name: "description", content: leader.tagline },
+        { name: "description", content: metaDescription },
         { property: "og:title", content: `${leader.title} | Rise Advisory` },
-        { property: "og:description", content: leader.description },
+        { property: "og:description", content: metaDescription },
         { property: "og:url", content: canonicalUrl },
+        { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: `${leader.title} | Rise Advisory` },
+        { name: "twitter:description", content: metaDescription },
+        { name: "twitter:image", content: "https://ryzeadvisory.co/logo.png" },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
     };

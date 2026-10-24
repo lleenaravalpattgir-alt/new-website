@@ -11,9 +11,16 @@ export const Route = createFileRoute("/offers")({
       {
         name: "description",
         content:
-          "Explore Rise Advisory's six transparent productised offers: Expert Power Sessions, Growth Diagnostics, 90-Day Rise Execution Sprints, Fractional CXO Retainers, Growth Pods, and Executive Workshops.",
+          "Explore Rise Advisory's productised offers: Expert Power Sessions, Growth Diagnostics, 90-Day Execution Sprints, and Fractional CXO Retainers.",
+      },
+      { property: "og:title", content: "Productised Offers & Pricing | Rise Advisory" },
+      {
+        property: "og:description",
+        content:
+          "Explore Rise Advisory's productised offers: Expert Power Sessions, Growth Diagnostics, 90-Day Execution Sprints, and Fractional CXO Retainers.",
       },
       { property: "og:url", content: "https://ryzeadvisory.co/offers" },
+      { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
     ],
     links: [{ rel: "canonical", href: "https://ryzeadvisory.co/offers" }],
   }),

@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BusinessFundingLoanSection } from "@/components/site/BusinessFundingLoanCard";
 import { solutionsData } from "@/data/solutionsData";
-import { buildCanonical } from "@/lib/seo";
+import { buildCanonical, buildTitle, buildDescription } from "@/lib/seo";
 import { caseStudiesData } from "@/data/caseStudiesData";
 import {
   TrendingUp,
@@ -38,13 +38,20 @@ export const Route = createFileRoute("/solutions/$slug")({
     const pillar = findPillar(params.slug);
     if (!pillar) return { meta: [{ title: "Solution Not Found | Rise Advisory" }] };
     const canonicalUrl = buildCanonical(`/solutions/${pillar.slug}`);
+    const title = buildTitle(`${pillar.title} Solutions`);
+    const description = buildDescription(pillar.summary);
     return {
       meta: [
-        { title: `${pillar.title} — Strategic Pillar | Rise Advisory` },
-        { name: "description", content: pillar.headline },
-        { property: "og:title", content: `${pillar.title} | Rise Advisory` },
-        { property: "og:description", content: pillar.summary },
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:url", content: canonicalUrl },
+        { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: "https://ryzeadvisory.co/logo.png" },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
     };

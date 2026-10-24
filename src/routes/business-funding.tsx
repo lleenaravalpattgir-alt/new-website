@@ -38,20 +38,26 @@ export const Route = createFileRoute("/business-funding")({
   head: () => ({
     meta: [
       {
-        title: "Business Loan & Startup Funding Consultant Ahmedabad Gujarat | Rise Advisory",
+        title: "Business Loans & Startup Funding Gujarat | Rise Advisory",
       },
       {
         name: "description",
         content:
-          "Independent business loan consultant in Ahmedabad & Gujarat. Guidance for MSME loans, CGTMSE collateral-free funding up to ₹5 Cr, Startup India Seed Fund, and venture capital syndication.",
+          "Business loan consultant in Ahmedabad & Gujarat for MSME loans, CGTMSE funding up to ₹5 Cr, Startup India Seed Fund, and venture capital syndication.",
       },
       {
         name: "keywords",
         content:
           "business loan Ahmedabad, business loan Gujarat, startup loan support Ahmedabad, collateral free business loan Gujarat, CGTMSE loan Ahmedabad, venture capital Gujarat, startup grant Ahmedabad, startup funding consultant",
       },
-      { property: "og:title", content: "Business Loan & Startup Funding Consultant Ahmedabad Gujarat | Rise Advisory" },
+      { property: "og:title", content: "Business Loans & Startup Funding Gujarat | Rise Advisory" },
+      {
+        property: "og:description",
+        content:
+          "Business loan consultant in Ahmedabad & Gujarat for MSME loans, CGTMSE funding up to ₹5 Cr, Startup India Seed Fund, and venture capital syndication.",
+      },
       { property: "og:url", content: "https://ryzeadvisory.co/business-funding" },
+      { property: "og:image", content: "https://ryzeadvisory.co/logo.png" },
     ],
     links: [{ rel: "canonical", href: "https://ryzeadvisory.co/business-funding" }],
     scripts: [
