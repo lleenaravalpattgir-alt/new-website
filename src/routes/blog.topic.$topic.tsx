@@ -37,6 +37,26 @@ export const Route = createFileRoute("/blog/topic/$topic")({
       url: canonicalUrl,
       publisher: { "@type": "Organization", name: ORG_NAME, logo: { "@type": "ImageObject", url: ABSOLUTE_ORG_LOGO } },
     };
+    const article = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: `${t.label} — Strategic Insights & Operational Guide`,
+      description,
+      mainEntityOfPage: canonicalUrl,
+      url: canonicalUrl,
+      inLanguage: "en-US",
+      articleSection: t.label,
+      author: {
+        "@type": "Organization",
+        name: ORG_NAME,
+        url: "https://ryzeadvisory.co",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: ORG_NAME,
+        logo: { "@type": "ImageObject", url: ABSOLUTE_ORG_LOGO },
+      },
+    };
     return {
       meta: [
         { title },
@@ -54,6 +74,7 @@ export const Route = createFileRoute("/blog/topic/$topic")({
       links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(collection) },
+        { type: "application/ld+json", children: JSON.stringify(article) },
       ],
     };
   },

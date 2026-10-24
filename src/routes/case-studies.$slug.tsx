@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { caseStudiesData, type CaseStudy } from "@/data/caseStudiesData";
 import { caseStudies } from "@/data/caseStudies";
@@ -38,14 +38,29 @@ function findCaseStudy(slug: string): CaseStudy | undefined {
 }
 
 export const Route = createFileRoute("/case-studies/$slug")({
+  loader: ({ params }) => {
+    if (!params.slug || params.slug.startsWith("$")) {
+      throw redirect({ to: "/case-studies", statusCode: 301 });
+    }
+    const cs = findCaseStudy(params.slug);
+    if (!cs) throw notFound();
+    return { cs };
+  },
   headers: () => ({
     "Cache-Control": "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800",
     "CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
     "Cloudflare-CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
   }),
-  head: ({ params }) => {
-    const cs = findCaseStudy(params.slug);
-    if (!cs) return { meta: [{ title: "Case Study Not Found | Rise Advisory" }] };
+  head: ({ loaderData, params }) => {
+    const cs = loaderData?.cs ?? findCaseStudy(params?.slug);
+    if (!cs) {
+      return {
+        meta: [
+          { title: "Case Study Not Found | Rise Advisory" },
+          { name: "robots", content: "noindex, nofollow" },
+        ],
+      };
+    }
     const canonicalUrl = buildCanonical(`/case-studies/${cs.slug}`);
 
     const articleSchema = {
@@ -148,16 +163,24 @@ export const Route = createFileRoute("/case-studies/$slug")({
       ],
     };
   },
+  notFoundComponent: () => (
+    <SiteLayout>
+      <div className="mx-auto max-w-3xl px-6 py-32 text-center">
+        <h1 className="text-4xl font-extrabold text-[#0F1E2F]">Case Study Not Found</h1>
+        <p className="mt-4 text-sm text-[#53637C]">The requested case study could not be located.</p>
+        <div className="mt-8">
+          <Link to="/case-studies" className="btn-gold inline-flex items-center gap-2">
+            <span>Explore All Case Studies</span>
+          </Link>
+        </div>
+      </div>
+    </SiteLayout>
+  ),
   component: CaseStudyDetailPage,
 });
 
 function CaseStudyDetailPage() {
-  const { slug } = Route.useParams();
-  const cs = findCaseStudy(slug);
-
-  if (!cs) {
-    throw notFound();
-  }
+  const { cs } = Route.useLoaderData();
 
   return (
     <SiteLayout>
