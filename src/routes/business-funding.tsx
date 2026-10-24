@@ -707,16 +707,16 @@ export function BusinessFundingPortalPage() {
               <button
                 onClick={() => setActiveTab("services")}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap shrink-0 ${activeTab === "services"
-                    ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
-                    : "text-slate-600 hover:bg-white hover:text-slate-900"
+                  ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
+                  : "text-slate-600 hover:bg-white hover:text-slate-900"
                   }`}
               >
                 <Layers className="h-4 w-4 text-[#D4A238]" />
                 <span>Core Portfolios</span>
                 <span
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${activeTab === "services"
-                      ? "bg-[#D4A238] text-[#0B1F3B]"
-                      : "bg-slate-200 text-slate-700"
+                    ? "bg-[#D4A238] text-[#0B1F3B]"
+                    : "bg-slate-200 text-slate-700"
                     }`}
                 >
                   7
@@ -726,16 +726,16 @@ export function BusinessFundingPortalPage() {
               <button
                 onClick={() => setActiveTab("locations")}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap shrink-0 ${activeTab === "locations"
-                    ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
-                    : "text-slate-600 hover:bg-white hover:text-slate-900"
+                  ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
+                  : "text-slate-600 hover:bg-white hover:text-slate-900"
                   }`}
               >
                 <MapPin className="h-4 w-4 text-[#D4A238]" />
                 <span>Gujarat &amp; Ahmedabad Hub</span>
                 <span
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${activeTab === "locations"
-                      ? "bg-[#D4A238] text-[#0B1F3B]"
-                      : "bg-emerald-100 text-emerald-800"
+                    ? "bg-[#D4A238] text-[#0B1F3B]"
+                    : "bg-emerald-100 text-emerald-800"
                     }`}
                 >
                   Local
@@ -745,16 +745,16 @@ export function BusinessFundingPortalPage() {
               <button
                 onClick={() => setActiveTab("blogs")}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap shrink-0 ${activeTab === "blogs"
-                    ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
-                    : "text-slate-600 hover:bg-white hover:text-slate-900"
+                  ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
+                  : "text-slate-600 hover:bg-white hover:text-slate-900"
                   }`}
               >
                 <BookOpen className="h-4 w-4 text-[#D4A238]" />
                 <span>Funding Guides</span>
                 <span
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${activeTab === "blogs"
-                      ? "bg-[#D4A238] text-[#0B1F3B]"
-                      : "bg-slate-200 text-slate-700"
+                    ? "bg-[#D4A238] text-[#0B1F3B]"
+                    : "bg-slate-200 text-slate-700"
                     }`}
                 >
                   6
@@ -764,16 +764,16 @@ export function BusinessFundingPortalPage() {
               <button
                 onClick={() => setActiveTab("calculator")}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap shrink-0 ${activeTab === "calculator"
-                    ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
-                    : "text-slate-600 hover:bg-white hover:text-slate-900"
+                  ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
+                  : "text-slate-600 hover:bg-white hover:text-slate-900"
                   }`}
               >
                 <Calculator className="h-4 w-4 text-[#D4A238]" />
                 <span>Eligibility Screener</span>
                 <span
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${activeTab === "calculator"
-                      ? "bg-[#D4A238] text-[#0B1F3B]"
-                      : "bg-blue-100 text-blue-800"
+                    ? "bg-[#D4A238] text-[#0B1F3B]"
+                    : "bg-blue-100 text-blue-800"
                     }`}
                 >
                   30s Tool
@@ -783,8 +783,8 @@ export function BusinessFundingPortalPage() {
               <button
                 onClick={() => setActiveTab("checklist")}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap shrink-0 ${activeTab === "checklist"
-                    ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
-                    : "text-slate-600 hover:bg-white hover:text-slate-900"
+                  ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
+                  : "text-slate-600 hover:bg-white hover:text-slate-900"
                   }`}
               >
                 <FileText className="h-4 w-4 text-[#D4A238]" />
@@ -794,8 +794,8 @@ export function BusinessFundingPortalPage() {
               <button
                 onClick={() => setActiveTab("faqs")}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap shrink-0 ${activeTab === "faqs"
-                    ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                  ? "bg-[#0B1F3B] text-white shadow-sm font-bold"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                   }`}
               >
                 <HelpCircle className="h-4 w-4 text-[#D4A238]" />
@@ -830,8 +830,8 @@ export function BusinessFundingPortalPage() {
                   type="button"
                   onClick={() => setSelectedService("collateral-free-business-loan")}
                   className={`p-4 rounded-xl border text-left transition-all ${selectedService === "collateral-free-business-loan"
-                      ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
-                      : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
+                    ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
+                    : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
                     }`}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -852,8 +852,8 @@ export function BusinessFundingPortalPage() {
                   type="button"
                   onClick={() => setSelectedService("startup-funding-and-grants")}
                   className={`p-4 rounded-xl border text-left transition-all ${selectedService === "startup-funding-and-grants"
-                      ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
-                      : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
+                    ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
+                    : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
                     }`}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -874,8 +874,8 @@ export function BusinessFundingPortalPage() {
                   type="button"
                   onClick={() => setSelectedService("business-financial-support")}
                   className={`p-4 rounded-xl border text-left transition-all ${selectedService === "business-financial-support"
-                      ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
-                      : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
+                    ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
+                    : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
                     }`}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -896,8 +896,8 @@ export function BusinessFundingPortalPage() {
                   type="button"
                   onClick={() => setSelectedService("venture-capital-and-fundraising")}
                   className={`p-4 rounded-xl border text-left transition-all ${selectedService === "venture-capital-and-fundraising"
-                      ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
-                      : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
+                    ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md ring-2 ring-[#D4A238]/30"
+                    : "border-slate-200 bg-white hover:border-[#D4A238]/50 hover:bg-slate-50 text-slate-900"
                     }`}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -927,8 +927,8 @@ export function BusinessFundingPortalPage() {
                     key={service.id}
                     onClick={() => setSelectedService(service.id)}
                     className={`w-full text-left p-3.5 rounded-xl border transition-all ${selectedService === service.id
-                        ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md"
-                        : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-800"
+                      ? "border-[#D4A238] bg-[#0B1F3B] text-white shadow-md"
+                      : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-800"
                       }`}
                   >
                     <div className="flex items-center justify-between">
