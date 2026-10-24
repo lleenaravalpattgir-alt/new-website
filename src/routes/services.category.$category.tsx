@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, ABSOLUTE_ORG_LOGO } from "@/lib/seo";
 import { ArrowUpRight } from "lucide-react";
 import { track } from "@/lib/track";
+import { topicBySlug, servicesForTopic, postsForTopic, topics } from "@/data/blogTopics";
 import type { Service } from "@/data/services";
 import type { BlogPost } from "@/data/blog";
 

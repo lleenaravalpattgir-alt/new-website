@@ -6,6 +6,7 @@ import { CTAButton } from "@/components/site/CTAButton";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { topicBySlug, postsForTopic, topics } from "@/data/blogTopics";
 import type { BlogPost } from "@/data/blog";
+import { BookOpen } from "lucide-react";
 import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, ABSOLUTE_ORG_LOGO } from "@/lib/seo";
 import { track } from "@/lib/track";
 
@@ -201,6 +202,45 @@ function TopicPage() {
               All {posts.length} {topic.label} insights loaded.
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Complete Topic Practice Library - Direct dofollow links to all articles in topic */}
+      <section className="border-t border-[#E2E8F0] bg-white py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#B8860B]">
+            <BookOpen className="h-4 w-4" /> Practice Library
+          </div>
+          <h2 className="mt-2 font-display text-2xl font-extrabold text-[#0F1E2F]">
+            All {topic.label} Operational Frameworks ({posts.length} Guides)
+          </h2>
+          <p className="mt-2 text-sm text-[#53637C] max-w-2xl">
+            Complete indexed reference directory of all published {topic.label.toLowerCase()} architecture playbooks and operational field notes.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((p, idx) => (
+              <Link
+                key={p.slug}
+                to="/blog/$slug"
+                params={{ slug: p.slug }}
+                className="group flex items-start gap-3 rounded-lg border border-[#E2E8F0] bg-[#F8FBFF] p-4 transition-all hover:border-[#D4A238] hover:shadow-xs hover:bg-white"
+              >
+                <span className="text-xs font-mono font-bold text-[#B8860B]/70 shrink-0 mt-0.5">
+                  #{String(idx + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <div className="text-xs font-bold text-[#0F1E2F] group-hover:text-[#B8860B] transition-colors line-clamp-2 leading-snug">
+                    {p.title}
+                  </div>
+                  <div className="mt-1 text-[11px] text-[#53637C] flex items-center gap-2">
+                    <span>{p.category}</span>
+                    <span>·</span>
+                    <span>{p.readingTime}</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

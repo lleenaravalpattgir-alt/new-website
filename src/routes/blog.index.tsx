@@ -98,7 +98,7 @@ export function BlogIndex() {
             >
               All Articles
             </button>
-            {topics.slice(0, 5).map((t) => (
+            {topics.map((t) => (
               <button
                 key={t.slug}
                 onClick={() => setTopic(t.slug)}
@@ -133,6 +133,23 @@ export function BlogIndex() {
               </button>
             )}
           </div>
+        </div>
+
+        {/* Practice Area Hub Directory bar */}
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-1.5 px-4 sm:px-6 pt-1 pb-3 text-xs text-[#53637C] border-t border-[#E2E8F0]/60">
+          <span className="font-semibold text-[#0F1E2F]">Explore Topic Hubs:</span>
+          {topics.map((t, idx) => (
+            <span key={t.slug} className="inline-flex items-center gap-1.5">
+              <Link
+                to="/blog/topic/$topic"
+                params={{ topic: t.slug }}
+                className="text-[#B8860B] hover:text-[#0B1F3B] hover:underline font-medium"
+              >
+                {t.label}
+              </Link>
+              {idx < topics.length - 1 && <span className="text-[#CBD5E1]">·</span>}
+            </span>
+          ))}
         </div>
       </section>
 

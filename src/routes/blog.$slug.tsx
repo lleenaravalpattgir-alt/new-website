@@ -5,7 +5,8 @@ import { CTAButton } from "@/components/site/CTAButton";
 import { getPost, blogPosts, type BlogPost } from "@/data/blog";
 import { getArticleBySlug } from "@/data/insightsArticles";
 import { services } from "@/data/services";
-import { ArrowUpRight, ArrowRight, Calendar, Clock, User, Sparkles, HelpCircle } from "lucide-react";
+import { topics } from "@/data/blogTopics";
+import { ArrowUpRight, ArrowRight, ArrowLeft, Calendar, Clock, User, Sparkles, HelpCircle, BookOpen } from "lucide-react";
 import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, toAbsoluteUrl, ABSOLUTE_ORG_LOGO } from "@/lib/seo";
 import ogDefault from "@/assets/og-default.jpg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -127,7 +128,54 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function PostPage() {
   const { post } = Route.useLoaderData();
-  const related = blogPosts.filter((p) => p.slug !== post.slug && p.pillar === post.pillar).slice(0, 3);
+  const postTopic = topics.find((t) => t.pillar === post.pillar);
+  const pillarPosts = blogPosts.filter((p) => p.pillar === post.pillar);
+  const totalInPillar = pillarPosts.length;
+  const currentIndex = pillarPosts.findIndex((p) => p.slug === post.slug);
+
+  // Cyclic Prev / Next in the pillar sequence to form an unbreakable link ring
+  const prevPost = totalInPillar > 1
+    ? pillarPosts[(currentIndex - 1 + totalInPillar) % totalInPillar]
+    : null;
+  const nextPost = totalInPillar > 1
+    ? pillarPosts[(currentIndex + 1) % totalInPillar]
+    : null;
+
+  // Contextual related articles (cyclic offset +2, +3, +4) ensuring balanced link distribution
+  const related: typeof blogPosts = [];
+  if (totalInPillar > 1) {
+    const candidateOffsets = [2, 3, 4, 5, 6];
+    for (const offset of candidateOffsets) {
+      if (related.length >= 3 || related.length >= totalInPillar - 1) break;
+      const candidate = pillarPosts[(currentIndex + offset) % totalInPillar];
+      if (
+        candidate &&
+        candidate.slug !== post.slug &&
+        !related.some((r) => r.slug === candidate.slug)
+      ) {
+        related.push(candidate);
+      }
+    }
+  }
+
+  // Sidebar topic cluster frameworks (cyclic offset +5, +6, +7)
+  const sidebarClusterPosts: typeof blogPosts = [];
+  if (totalInPillar > 4) {
+    const candidateOffsets = [5, 6, 7, 8, 9, 10];
+    for (const offset of candidateOffsets) {
+      if (sidebarClusterPosts.length >= 3 || sidebarClusterPosts.length >= totalInPillar - 4) break;
+      const candidate = pillarPosts[(currentIndex + offset) % totalInPillar];
+      if (
+        candidate &&
+        candidate.slug !== post.slug &&
+        !related.some((r) => r.slug === candidate.slug) &&
+        !sidebarClusterPosts.some((r) => r.slug === candidate.slug)
+      ) {
+        sidebarClusterPosts.push(candidate);
+      }
+    }
+  }
+
   const featuredService = services.find((s) => s.slug === post.relatedService) ?? services[0];
   // Contextual sibling services: pull from blog posts in the same pillar → unique services
   const siblingServiceSlugs = Array.from(
@@ -193,10 +241,21 @@ function PostPage() {
               items={[
                 { label: "Home", href: "/" },
                 { label: "Insights", href: "/blog" },
+                ...(postTopic ? [{ label: postTopic.label, href: `/blog/topic/${postTopic.slug}` }] : []),
                 { label: post.title },
               ]}
             />
-            <div className="mt-5 text-xs font-bold uppercase tracking-wider text-[#B8860B]">{post.category} · {post.pillar}</div>
+            <div className="mt-5 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#B8860B]">
+              {postTopic ? (
+                <Link to="/blog/topic/$topic" params={{ topic: postTopic.slug }} className="hover:underline">
+                  {postTopic.label}
+                </Link>
+              ) : (
+                <span>{post.pillar}</span>
+              )}
+              <span>·</span>
+              <span>{post.category}</span>
+            </div>
             <h1 className="mt-4 font-display text-balance text-3xl font-extrabold leading-[1.18] text-[#0F1E2F] sm:text-4xl md:text-5xl">{post.title}</h1>
             <div className="mt-6 flex flex-wrap items-center gap-6 text-sm text-[#53637C]">
               <Link to="/about/author" rel="author" className="inline-flex items-center gap-2 hover:text-[#B8860B] hover:underline">
@@ -257,6 +316,44 @@ function PostPage() {
                   See the full Rise Advisory service architecture →
                 </Link>
               </div>
+            )}
+
+            {/* Prev / Next Article Navigation */}
+            {(prevPost || nextPost) && (
+              <nav aria-label="Previous and Next Articles" className="not-prose my-12 border-t border-b border-[#E2E8F0] py-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {prevPost ? (
+                    <Link
+                      to="/blog/$slug"
+                      params={{ slug: prevPost.slug }}
+                      className="group flex flex-col p-5 rounded-xl border border-[#E2E8F0] bg-[#F8FBFF] hover:border-[#D4A238] hover:shadow-md transition-all text-left"
+                    >
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#53637C] flex items-center gap-1.5 group-hover:text-[#B8860B]">
+                        <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
+                        Previous Framework
+                      </span>
+                      <span className="mt-2 text-sm font-bold text-[#0F1E2F] group-hover:text-[#B8860B] line-clamp-2">
+                        {prevPost.title}
+                      </span>
+                    </Link>
+                  ) : <div />}
+                  {nextPost ? (
+                    <Link
+                      to="/blog/$slug"
+                      params={{ slug: nextPost.slug }}
+                      className="group flex flex-col p-5 rounded-xl border border-[#E2E8F0] bg-[#F8FBFF] hover:border-[#D4A238] hover:shadow-md transition-all text-right sm:items-end"
+                    >
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#53637C] flex items-center gap-1.5 group-hover:text-[#B8860B]">
+                        Next Framework
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </span>
+                      <span className="mt-2 text-sm font-bold text-[#0F1E2F] group-hover:text-[#B8860B] line-clamp-2">
+                        {nextPost.title}
+                      </span>
+                    </Link>
+                  ) : <div />}
+                </div>
+              </nav>
             )}
 
             {/* FAQ section — emits FAQPage JSON-LD in head */}
@@ -323,6 +420,44 @@ function PostPage() {
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
+
+            {/* Topic Pillar Quick Links */}
+            {sidebarClusterPosts.length > 0 && (
+              <div className="rounded-xl border border-[#E2E8F0] bg-white p-6 shadow-xs">
+                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#B8860B]">
+                  <BookOpen className="h-3.5 w-3.5" />
+                  <span>Practice Track · {post.pillar}</span>
+                </div>
+                <h4 className="mt-2 font-display text-base font-bold text-[#0F1E2F]">
+                  Related Field Notes
+                </h4>
+                <ul className="mt-4 space-y-3">
+                  {sidebarClusterPosts.map((p) => (
+                    <li key={p.slug} className="border-b border-[#E2E8F0] pb-3 last:border-0 last:pb-0">
+                      <Link
+                        to="/blog/$slug"
+                        params={{ slug: p.slug }}
+                        className="text-xs font-semibold text-[#0F1E2F] hover:text-[#B8860B] transition-colors line-clamp-2 block"
+                      >
+                        {p.title}
+                      </Link>
+                      <span className="text-[11px] text-[#53637C] mt-1 block">{p.readingTime} read</span>
+                    </li>
+                  ))}
+                </ul>
+                {postTopic && (
+                  <Link
+                    to="/blog/topic/$topic"
+                    params={{ topic: postTopic.slug }}
+                    className="mt-4 pt-3 border-t border-[#E2E8F0] inline-flex items-center gap-1 text-xs font-bold text-[#B8860B] hover:text-[#0B1F3B]"
+                  >
+                    <span>All {pillarPosts.length} {postTopic.label} Frameworks</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                )}
+              </div>
+            )}
+
             <LeadForm compact />
           </aside>
         </div>

@@ -8,6 +8,7 @@ import { AgencyValue } from "@/components/site/AgencyValue";
 import { EcosystemGrid } from "@/components/site/EcosystemGrid";
 import { getService, services, type Service } from "@/data/services";
 import { blogPosts } from "@/data/blog";
+import { topics } from "@/data/blogTopics";
 import { CheckCircle2, ArrowUpRight, AlertTriangle, BookOpen } from "lucide-react";
 import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO, toAbsoluteUrl } from "@/lib/seo";
 import ogDefault from "@/assets/og-default.jpg";
@@ -195,6 +196,7 @@ function ServicePage() {
     (p) => p.relatedService !== service.slug && sameCategory.some((s) => s.slug === p.relatedService),
   );
   const relatedPosts = [...directPosts, ...fillerPosts].slice(0, 4);
+  const serviceTopic = topics.find((t) => t.serviceCategories.includes(service.category));
 
   return (
     <SiteLayout>
@@ -317,10 +319,19 @@ function ServicePage() {
                 </Link>
               ))}
             </div>
-            <div className="mt-6">
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <Link to="/blog" className="text-sm font-semibold text-primary underline-offset-4 hover:text-accent hover:underline">
                 Browse all RYZE insights →
               </Link>
+              {serviceTopic && (
+                <Link
+                  to="/blog/topic/$topic"
+                  params={{ topic: serviceTopic.slug }}
+                  className="text-sm font-semibold text-accent underline-offset-4 hover:underline"
+                >
+                  Explore {serviceTopic.label} Topic Hub ({blogPosts.filter((p) => p.pillar === serviceTopic.pillar).length} Frameworks) →
+                </Link>
+              )}
             </div>
           </div>
         </section>

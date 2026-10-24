@@ -1003,13 +1003,39 @@ export function getRelatedArticles(
     if (specific.length >= limit) return specific.slice(0, limit);
   }
 
-  // Fallback to same category
-  const sameCategory = published.filter((a) => a.slug !== currentSlug && a.category === category);
-  if (sameCategory.length >= limit) return sameCategory.slice(0, limit);
+  // Fallback to same category with cyclic window to prevent link concentration
+  const sameCategory = published.filter((a) => a.category === category);
+  if (sameCategory.length > 1) {
+    const currentIndex = sameCategory.findIndex((a) => a.slug === currentSlug);
+    const related: InsightsArticle[] = [];
+    for (let i = 1; i < sameCategory.length && related.length < limit; i++) {
+      const idx = (currentIndex + i) % sameCategory.length;
+      if (sameCategory[idx].slug !== currentSlug) {
+        related.push(sameCategory[idx]);
+      }
+    }
+    if (related.length >= limit) return related;
+    const publishedIndex = published.findIndex((a) => a.slug === currentSlug);
+    for (let i = 1; i < published.length && related.length < limit; i++) {
+      const idx = (publishedIndex + i) % published.length;
+      const candidate = published[idx];
+      if (candidate.slug !== currentSlug && !related.some((r) => r.slug === candidate.slug)) {
+        related.push(candidate);
+      }
+    }
+    return related;
+  }
 
-  // Fill remainder with other published articles
-  const other = published.filter((a) => a.slug !== currentSlug && !sameCategory.includes(a));
-  return [...sameCategory, ...other].slice(0, limit);
+  // Fill remainder with other published articles cyclically
+  const currentIndex = published.findIndex((a) => a.slug === currentSlug);
+  const related: InsightsArticle[] = [];
+  for (let i = 1; i < published.length && related.length < limit; i++) {
+    const idx = (currentIndex + i) % published.length;
+    if (published[idx].slug !== currentSlug) {
+      related.push(published[idx]);
+    }
+  }
+  return related;
 }
 
 export function searchArticles(query: string, categorySlug = "all"): InsightsArticle[] {
