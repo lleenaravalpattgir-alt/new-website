@@ -2,19 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { HelpCircle, ArrowRight, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
 
-export const Route = createFileRoute("/faqs")({
-  head: () => ({
-    meta: [
-      { title: "Frequently Asked Questions | Rise Advisory" },
-      { name: "description", content: "Common questions about fractional leadership, engagement models, delivery cadence, and pricing at Rise Advisory." },
-      { property: "og:title", content: "Frequently Asked Questions | Rise Advisory" },
-      { property: "og:url", content: "https://ryzeadvisory.co/faqs" },
-    ],
-    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/faqs" }],
-  }),
-  component: FAQsPage,
-});
-
 const faqList = [
   {
     category: "Fractional Leadership & Model",
@@ -64,6 +51,67 @@ const faqList = [
     ]
   }
 ];
+
+export const Route = createFileRoute("/faqs")({
+  head: () => {
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://ryzeadvisory.co/faqs#faq",
+      mainEntity: faqList.flatMap((cat) =>
+        cat.questions.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        }))
+      ),
+    };
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://ryzeadvisory.co/faqs#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://ryzeadvisory.co/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "FAQs",
+          item: "https://ryzeadvisory.co/faqs",
+        },
+      ],
+    };
+
+    return {
+      meta: [
+        { title: "Frequently Asked Questions | Rise Advisory" },
+        { name: "description", content: "Common questions about fractional leadership, engagement models, delivery cadence, and pricing at Rise Advisory." },
+        { property: "og:title", content: "Frequently Asked Questions | Rise Advisory" },
+        { property: "og:url", content: "https://ryzeadvisory.co/faqs" },
+      ],
+      links: [{ rel: "canonical", href: "https://ryzeadvisory.co/faqs" }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(faqSchema),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(breadcrumbSchema),
+        },
+      ],
+    };
+  },
+  component: FAQsPage,
+});
 
 function FAQsPage() {
   return (

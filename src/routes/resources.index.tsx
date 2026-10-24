@@ -186,7 +186,7 @@ function ResourcesHubPage() {
 
       {/* Downloadable Templates Section */}
       <section className="bg-white py-20 border-b border-[#E2E8F0]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-8">
           <div className="rounded-2xl border border-[#D4A238]/30 bg-[#F8FBFF] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="max-w-2xl">
               <span className="badge-gold mb-2">Offline Frameworks</span>
@@ -201,6 +201,31 @@ function ResourcesHubPage() {
               <Link to="/resources/templates" className="btn-secondary flex items-center gap-2">
                 <Download className="h-4 w-4" />
                 <span>View Template Downloads</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Tactical Prompt Library Banner */}
+          <div className="rounded-2xl border border-[#132F55] bg-[#0B1F3B] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-white relative overflow-hidden shadow-lg">
+            <div 
+              className="pointer-events-none absolute inset-0 opacity-15"
+              style={{ background: "linear-gradient(115deg, #0B1F3B 0%, #132F55 50%, #D4A238 100%)" }}
+              aria-hidden="true"
+            />
+            <div className="max-w-2xl relative z-10">
+              <span className="badge-gold mb-2">Automation Playbooks</span>
+              <h3 className="text-2xl font-extrabold text-white">
+                Tactical AI Prompt Library for Operators
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                400+ production-grade prompts and workflows for n8n architects, performance marketers, agency operators, and technical founders. Searchable by persona and stack.
+              </p>
+            </div>
+            <div className="shrink-0 relative z-10">
+              <Link to="/prompts" className="btn-gold flex items-center gap-2">
+                <Brain className="h-4 w-4" />
+                <span>Explore Prompt Library</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           </div>

@@ -40,6 +40,7 @@ const resourceLinks = [
   { to: "/resources", label: "Resource Library & Tools" },
   { to: "/resources/cost-calculator", label: "Fractional Cost Calculator" },
   { to: "/resources/templates", label: "Executive Templates" },
+  { to: "/prompts", label: "Tactical AI Prompts Library" },
   { to: "/business-funding", label: "Business Loans & Startup Funding (Gujarat)" },
   { to: "/faqs", label: "Frequently Asked Questions" },
 ];

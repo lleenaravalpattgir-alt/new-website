@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createFileRoute, useSearch } from '@tanstack/react-router'
+import { createFileRoute, useSearch, Link } from '@tanstack/react-router'
 
 type State =
   | { kind: 'loading' }
@@ -126,6 +126,15 @@ function UnsubscribePage() {
             <p className="text-sm text-muted-foreground">{state.message}</p>
           </div>
         )}
+
+        <div className="mt-8 pt-4 border-t border-border text-center">
+          <Link
+            to="/"
+            className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1.5"
+          >
+            ← Return to Rise Advisory Homepage
+          </Link>
+        </div>
       </div>
     </main>
   )
