@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { caseStudiesData, type CaseStudy } from "@/data/caseStudiesData";
 import { caseStudies } from "@/data/caseStudies";
-import { buildCanonical } from "@/lib/seo";
+import { buildCanonical, ORG_NAME } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, AlertTriangle, ShieldCheck, Calendar, Clock, Sparkles, ChevronRight } from "lucide-react";
 
 function findCaseStudy(slug: string): CaseStudy | undefined {
@@ -47,6 +47,77 @@ export const Route = createFileRoute("/case-studies/$slug")({
     const cs = findCaseStudy(params.slug);
     if (!cs) return { meta: [{ title: "Case Study Not Found | Rise Advisory" }] };
     const canonicalUrl = buildCanonical(`/case-studies/${cs.slug}`);
+
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": `${canonicalUrl}#article`,
+      isPartOf: {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+        url: canonicalUrl,
+        name: `${cs.title} | Case Study | Rise Advisory`,
+        description: cs.initialProblem,
+        breadcrumb: {
+          "@id": `${canonicalUrl}#breadcrumb`,
+        },
+      },
+      headline: cs.title,
+      description: cs.initialProblem,
+      image: "https://ryzeadvisory.co/logo.png",
+      mainEntityOfPage: canonicalUrl,
+      inLanguage: "en-US",
+      author: {
+        "@type": "Organization",
+        name: ORG_NAME,
+        url: "https://ryzeadvisory.co",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: ORG_NAME,
+        url: "https://ryzeadvisory.co",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://ryzeadvisory.co/logo.png",
+        },
+      },
+      about: {
+        "@type": "Service",
+        name: cs.fractionalRoles.join(", ") || cs.clientIndustry,
+        provider: {
+          "@type": "Organization",
+          name: ORG_NAME,
+          url: "https://ryzeadvisory.co",
+        },
+      },
+    };
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://ryzeadvisory.co/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Case Studies",
+          item: "https://ryzeadvisory.co/case-studies",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: cs.title,
+          item: canonicalUrl,
+        },
+      ],
+    };
+
     return {
       meta: [
         { title: `${cs.title} | Case Study | Rise Advisory` },
@@ -55,6 +126,16 @@ export const Route = createFileRoute("/case-studies/$slug")({
         { property: "og:url", content: canonicalUrl },
       ],
       links: [{ rel: "canonical", href: canonicalUrl }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(articleSchema),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(breadcrumbSchema),
+        },
+      ],
     };
   },
   component: CaseStudyDetailPage,

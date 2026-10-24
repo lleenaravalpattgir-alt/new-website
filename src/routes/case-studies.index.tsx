@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BusinessFundingLoanSection } from "@/components/site/BusinessFundingLoanCard";
 import { caseStudiesData } from "@/data/caseStudiesData";
+import { ORG_NAME } from "@/lib/seo";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/case-studies/")({
@@ -13,6 +14,51 @@ export const Route = createFileRoute("/case-studies/")({
       { property: "og:url", content: "https://ryzeadvisory.co/case-studies" },
     ],
     links: [{ rel: "canonical", href: "https://ryzeadvisory.co/case-studies" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": "https://ryzeadvisory.co/case-studies#collection",
+          name: "Results & Structured Case Studies | Rise Advisory",
+          description:
+            "Documented business turnarounds, working capital optimization, CAC reduction, and enterprise scaling milestones from Rise Advisory.",
+          url: "https://ryzeadvisory.co/case-studies",
+          publisher: {
+            "@type": "Organization",
+            name: ORG_NAME,
+            url: "https://ryzeadvisory.co",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://ryzeadvisory.co/logo.png",
+            },
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "@id": "https://ryzeadvisory.co/case-studies#breadcrumb",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://ryzeadvisory.co/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Case Studies",
+              item: "https://ryzeadvisory.co/case-studies",
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: CaseStudiesIndexPage,
 });
