@@ -7,7 +7,10 @@ export const Route = createFileRoute("/faqs")({
     meta: [
       { title: "Frequently Asked Questions | Rise Advisory" },
       { name: "description", content: "Common questions about fractional leadership, engagement models, delivery cadence, and pricing at Rise Advisory." },
+      { property: "og:title", content: "Frequently Asked Questions | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/faqs" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/faqs" }],
   }),
   component: FAQsPage,
 });

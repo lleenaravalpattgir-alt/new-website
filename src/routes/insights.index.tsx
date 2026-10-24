@@ -39,8 +39,9 @@ export const Route = createFileRoute("/insights/")({
           "Practical guidance on fractional leadership, CFO services, AI adoption, MSME business loans, and sustainable growth for Indian enterprises.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://ryzeadvisory.co/insights" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/insights" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/insights" }],
   }),
   component: InsightsIndexPage,
 });

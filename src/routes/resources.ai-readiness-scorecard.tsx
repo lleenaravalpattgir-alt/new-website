@@ -13,8 +13,9 @@ export const Route = createFileRoute("/resources/ai-readiness-scorecard")({
         content:
           "Audit internal data security, software API readiness, and evaluate high-ROI workflow automation candidates with the Rise Advisory AI Readiness Scorecard.",
       },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources/ai-readiness-scorecard" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/resources/ai-readiness-scorecard" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources/ai-readiness-scorecard" }],
   }),
   component: AIReadinessScorecardPage,
 });

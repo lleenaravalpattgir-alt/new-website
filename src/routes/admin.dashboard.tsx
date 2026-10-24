@@ -130,6 +130,49 @@ export function AdminDashboardPage() {
   const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
   const [editorError, setEditorError] = useState<string | null>(null);
 
+  // IndexNow Instant Indexing State
+  const [indexNowUrl, setIndexNowUrl] = useState("https://ryzeadvisory.co/blog/the-llm-brand-sentiment-index-we-use-for-quarterly-reviews");
+  const [indexNowSubmitting, setIndexNowSubmitting] = useState(false);
+  const [indexNowStatus, setIndexNowStatus] = useState<{
+    type: "success" | "error" | "info";
+    message: string;
+    details?: string;
+  } | null>(null);
+
+  const handleIndexNowSubmit = async (submitAll = false) => {
+    setIndexNowSubmitting(true);
+    setIndexNowStatus(null);
+    try {
+      const payload = submitAll ? { submitAll: true } : { url: indexNowUrl.trim() };
+      const res = await fetch("/api/public/indexnow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIndexNowStatus({
+          type: "success",
+          message: `HTTP ${data.statusCode}: ${data.message} (${data.submittedCount} URL(s) notified to IndexNow)`,
+          details: "Submission signals search engines to crawl these URLs. Indexing is subject to search engine validation and crawl scheduling.",
+        });
+      } else {
+        setIndexNowStatus({
+          type: "error",
+          message: data.error || data.message || `Error submitting (HTTP ${res.status})`,
+          details: data.rejected ? `Rejected: ${JSON.stringify(data.rejected)}` : undefined,
+        });
+      }
+    } catch (err) {
+      setIndexNowStatus({
+        type: "error",
+        message: err instanceof Error ? err.message : String(err),
+      });
+    } finally {
+      setIndexNowSubmitting(false);
+    }
+  };
+
   // Load articles on mount and listen for external updates
   const reloadArticles = () => {
     const list = getStoredArticles();
@@ -256,7 +299,7 @@ export function AdminDashboardPage() {
     setEditorMetaDesc(article.metaDescription || article.excerpt);
     setEditorPrimaryKeyword(article.primaryKeyword);
     setEditorSecondaryKeywords(article.secondaryKeywords?.join(", ") || "");
-    setEditorCanonicalUrl(`https://riseadvisory.co/insights/${article.slug}`);
+    setEditorCanonicalUrl(`https://ryzeadvisory.co/insights/${article.slug}`);
     setEditorBlocks(article.content && article.content.length > 0 ? [...article.content] : [
       { type: "h2", text: "Overview" },
       { type: "p", text: article.excerpt },
@@ -1440,7 +1483,7 @@ export function AdminDashboardPage() {
                         {editorSeoTitle || editorTitle || "Untitled"} | Rise Advisory
                       </div>
                       <div className="text-[10px] text-emerald-800 font-mono truncate">
-                        https://riseadvisory.co/insights/{editorSlug || "article-slug"}
+                        https://ryzeadvisory.co/insights/{editorSlug || "article-slug"}
                       </div>
                       <div className="text-[11px] text-[#53637C] line-clamp-2 mt-0.5">
                         {editorMetaDesc || editorExcerpt || "Explore practical guidance and frameworks from Ryze Advisory."}
@@ -1507,7 +1550,102 @@ export function AdminDashboardPage() {
 
         {/* ================= TAB 6: SEO SETTINGS ================= */}
         {activeTab === "seo" && (
-          <div className="space-y-4">
+          <div className="space-y-6">
+            {/* IndexNow Instant Indexing Card */}
+            <Card className="p-6 bg-white border-[#E2E8F0] space-y-4 text-xs">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Globe className="h-4 w-4 text-[#B8860B]" />
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-[#0F1E2F]">
+                      IndexNow Instant Search Engine Indexing
+                    </h2>
+                  </div>
+                  <p className="mt-1 text-xs text-[#53637C]">
+                    Notify Microsoft Bing, Yandex, Naver, and Seznam instantly whenever pages or blog articles are added, updated, or removed.
+                  </p>
+                </div>
+                <Badge className="bg-emerald-50 text-emerald-800 border-emerald-200">
+                  Protocol Active
+                </Badge>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-[#E2E8F0]">
+                <div>
+                  <span className="font-bold text-[#0F1E2F] block">Verified Host</span>
+                  <span className="font-mono text-[11px] text-[#53637C]">ryzeadvisory.co</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#0F1E2F] block">Verification Key File</span>
+                  <a
+                    href="/6c5e23d5a4d98e2abf777b00b5660ac9.txt"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono text-[11px] text-[#B8860B] hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>/6c5e23d5a4d98e2abf777b00b5660ac9.txt</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <label className="font-bold text-[#0F1E2F] block">
+                  Submit Target URL to IndexNow:
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={indexNowUrl}
+                    onChange={(e) => setIndexNowUrl(e.target.value)}
+                    placeholder="https://ryzeadvisory.co/blog/your-article-slug"
+                    className="flex-1 rounded-lg border border-[#CBD5E1] p-2.5 text-xs font-mono bg-white focus:outline-none focus:ring-1 focus:ring-[#B8860B]"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleIndexNowSubmit(false)}
+                    disabled={indexNowSubmitting}
+                    className="btn-gold px-4 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-gold flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                    <span>{indexNowSubmitting ? "Submitting..." : "Submit URL"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleIndexNowSubmit(true)}
+                    disabled={indexNowSubmitting}
+                    className="rounded-lg border border-[#0B1F3B] bg-[#0B1F3B] text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider hover:bg-[#132F55] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  >
+                    <span>Submit Entire Sitemap</span>
+                  </button>
+                </div>
+
+                {indexNowStatus && (
+                  <div
+                    className={`p-3.5 rounded-lg text-xs border ${
+                      indexNowStatus.type === "success"
+                        ? "bg-emerald-50 text-emerald-900 border-emerald-200"
+                        : "bg-red-50 text-red-900 border-red-200"
+                    }`}
+                  >
+                    <div className="font-bold flex items-center gap-1.5">
+                      {indexNowStatus.type === "success" ? (
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                      ) : (
+                        <AlertTriangle className="h-4 w-4 text-red-600" />
+                      )}
+                      <span>{indexNowStatus.message}</span>
+                    </div>
+                    {indexNowStatus.details && (
+                      <p className="mt-1 text-[11px] opacity-90 leading-relaxed">
+                        {indexNowStatus.details}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </Card>
+
             <Card className="p-6 bg-white border-[#E2E8F0] space-y-4 text-xs">
               <h2 className="text-sm font-bold uppercase tracking-wider text-[#0F1E2F]">
                 Global SEO &amp; Schema Configuration
@@ -1522,7 +1660,7 @@ export function AdminDashboardPage() {
                   <input
                     type="text"
                     disabled
-                    value="https://riseadvisory.co"
+                    value="https://ryzeadvisory.co"
                     className="mt-1 w-full rounded border border-[#CBD5E1] p-2 bg-[#F8FBFF] font-mono text-xs"
                   />
                 </div>

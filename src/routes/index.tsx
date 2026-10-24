@@ -52,9 +52,9 @@ export const Route = createFileRoute("/")({
         content:
           "Embed fractional CXOs and vetted specialists into your business. Senior leadership and measurable 90-day execution sprints.",
       },
-      { property: "og:url", content: "https://riseadvisory.co/" },
+      { property: "og:url", content: "https://ryzeadvisory.co/" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/" }],
   }),
   component: IndexPage,
 });

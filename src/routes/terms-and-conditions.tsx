@@ -7,7 +7,10 @@ export const Route = createFileRoute("/terms-and-conditions")({
     meta: [
       { title: "Terms & Conditions | Rise Advisory" },
       { name: "description", content: "Terms and conditions governing website use and advisory engagements with Rise Advisory." },
+      { property: "og:title", content: "Terms & Conditions | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/terms-and-conditions" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/terms-and-conditions" }],
   }),
   component: TermsAndConditionsPage,
 });

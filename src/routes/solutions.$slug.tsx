@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BusinessFundingLoanSection } from "@/components/site/BusinessFundingLoanCard";
 import { solutionsData } from "@/data/solutionsData";
+import { buildCanonical } from "@/lib/seo";
 import { caseStudiesData } from "@/data/caseStudiesData";
 import {
   TrendingUp,
@@ -36,13 +37,16 @@ export const Route = createFileRoute("/solutions/$slug")({
   head: ({ params }) => {
     const pillar = findPillar(params.slug);
     if (!pillar) return { meta: [{ title: "Solution Not Found | Rise Advisory" }] };
+    const canonicalUrl = buildCanonical(`/solutions/${pillar.slug}`);
     return {
       meta: [
         { title: `${pillar.title} — Strategic Pillar | Rise Advisory` },
         { name: "description", content: pillar.headline },
         { property: "og:title", content: `${pillar.title} | Rise Advisory` },
         { property: "og:description", content: pillar.summary },
+        { property: "og:url", content: canonicalUrl },
       ],
+      links: [{ rel: "canonical", href: canonicalUrl }],
     };
   },
   component: SolutionDetailPage,

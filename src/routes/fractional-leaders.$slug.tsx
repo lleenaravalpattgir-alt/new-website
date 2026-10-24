@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { fractionalLeadersData } from "@/data/fractionalLeadersData";
+import { buildCanonical } from "@/lib/seo";
 import {
   ArrowRight,
   CheckCircle2,
@@ -27,13 +28,16 @@ export const Route = createFileRoute("/fractional-leaders/$slug")({
       (l) => l.slug === cleanSlug || l.slug === rawSlug || l.id === cleanSlug,
     );
     if (!leader) return { meta: [{ title: "Leader Role Not Found | Rise Advisory" }] };
+    const canonicalUrl = buildCanonical(`/fractional-leaders/${leader.slug}`);
     return {
       meta: [
         { title: `${leader.title} | Rise Advisory` },
         { name: "description", content: leader.tagline },
         { property: "og:title", content: `${leader.title} | Rise Advisory` },
         { property: "og:description", content: leader.description },
+        { property: "og:url", content: canonicalUrl },
       ],
+      links: [{ rel: "canonical", href: canonicalUrl }],
     };
   },
   component: FractionalLeaderDetailPage,

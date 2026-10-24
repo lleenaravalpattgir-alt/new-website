@@ -11,6 +11,10 @@ type State =
   | { kind: 'error'; message: string }
 
 export const Route = createFileRoute('/unsubscribe')({
+  head: () => ({
+    meta: [{ name: "robots", content: "noindex, nofollow" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/unsubscribe" }],
+  }),
   validateSearch: (search: Record<string, unknown>) => ({
     token: typeof search.token === 'string' ? search.token : '',
   }),

@@ -8,7 +8,10 @@ export const Route = createFileRoute("/experts")({
     meta: [
       { title: "Vetted Expert Bench & Advisors | Rise Advisory" },
       { name: "description", content: "Meet the senior practice leads and fractional executives at Rise Advisory. 15+ years average leadership experience across finance, growth, tech, and operations." },
+      { property: "og:title", content: "Vetted Expert Bench & Advisors | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/experts" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/experts" }],
   }),
   component: ExpertsPage,
 });

@@ -9,7 +9,10 @@ export const Route = createFileRoute("/book-diagnostic")({
     meta: [
       { title: "Book a 90-Minute Business Review | Rise Advisory" },
       { name: "description", content: "A 90-minute meeting to understand your business challenges, find where your team needs support, and get a simple, practical 90-day action plan." },
+      { property: "og:title", content: "Book a 90-Minute Business Review | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/book-diagnostic" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/book-diagnostic" }],
   }),
   component: BookDiagnosticPage,
 });

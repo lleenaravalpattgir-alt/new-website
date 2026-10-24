@@ -14,8 +14,9 @@ export const Route = createFileRoute("/resources/capital-readiness-checklist")({
         content:
           "Audit your company's investor diligence readiness across accounting MIS, cap table, statutory compliance, and commercial contracts.",
       },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources/capital-readiness-checklist" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/resources/capital-readiness-checklist" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources/capital-readiness-checklist" }],
   }),
   component: CapitalReadinessPage,
 });

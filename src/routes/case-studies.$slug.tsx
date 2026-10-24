@@ -1,18 +1,60 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { caseStudiesData } from "@/data/caseStudiesData";
+import { caseStudiesData, type CaseStudy } from "@/data/caseStudiesData";
+import { caseStudies } from "@/data/caseStudies";
+import { buildCanonical } from "@/lib/seo";
 import { ArrowRight, CheckCircle2, AlertTriangle, ShieldCheck, Calendar, Clock, Sparkles, ChevronRight } from "lucide-react";
 
+function findCaseStudy(slug: string): CaseStudy | undefined {
+  const primary = caseStudiesData.find((c) => c.slug === slug || c.id === slug);
+  if (primary) return primary;
+  const legacy = caseStudies.find((c) => c.slug === slug);
+  if (legacy) {
+    return {
+      id: legacy.slug,
+      slug: legacy.slug,
+      title: legacy.title,
+      clientIndustry: legacy.industry,
+      companyStage: legacy.client,
+      initialProblem: legacy.challenge,
+      baseline: [
+        { label: "Challenge Baseline", value: "Prior Workflow" },
+        { label: "Manual Effort", value: "High Overhead" },
+      ],
+      intervention: `${legacy.body} ${legacy.approach.join(". ")}`,
+      deliveryTimeline: legacy.duration,
+      agreedMilestones: legacy.approach,
+      verifiedOutcome: legacy.outcomes.map((o) => ({ label: o.label, value: o.metric })),
+      testimonial: {
+        quote: legacy.quote.text,
+        author: legacy.quote.name,
+        designation: legacy.quote.role,
+      },
+      fractionalRoles: [legacy.pillar],
+      isDevelopmentSample: false,
+    };
+  }
+  return undefined;
+}
+
 export const Route = createFileRoute("/case-studies/$slug")({
+  headers: () => ({
+    "Cache-Control": "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800",
+    "CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+    "Cloudflare-CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+  }),
   head: ({ params }) => {
-    const cs = caseStudiesData.find(c => c.slug === params.slug);
+    const cs = findCaseStudy(params.slug);
     if (!cs) return { meta: [{ title: "Case Study Not Found | Rise Advisory" }] };
+    const canonicalUrl = buildCanonical(`/case-studies/${cs.slug}`);
     return {
       meta: [
         { title: `${cs.title} | Case Study | Rise Advisory` },
         { name: "description", content: cs.initialProblem },
         { property: "og:title", content: `${cs.title} | Rise Advisory` },
+        { property: "og:url", content: canonicalUrl },
       ],
+      links: [{ rel: "canonical", href: canonicalUrl }],
     };
   },
   component: CaseStudyDetailPage,
@@ -20,7 +62,7 @@ export const Route = createFileRoute("/case-studies/$slug")({
 
 function CaseStudyDetailPage() {
   const { slug } = Route.useParams();
-  const cs = caseStudiesData.find(c => c.slug === slug);
+  const cs = findCaseStudy(slug);
 
   if (!cs) {
     throw notFound();

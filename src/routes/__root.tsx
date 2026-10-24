@@ -129,8 +129,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Rise Advisory",
-          url: "https://riseadvisory.co",
-          logo: "https://riseadvisory.co/logo.png",
+          url: "https://ryzeadvisory.co",
+          logo: "https://ryzeadvisory.co/logo.png",
           telephone: "+919313967971",
           email: "hello@riseadvisory.co",
           address: {

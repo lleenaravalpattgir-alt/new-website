@@ -3,6 +3,26 @@
 export const SITE_NAME = "Rise Advisory";
 export const ORG_NAME = "Rise Advisory";
 export const ORG_LOGO = "/logo.png"; // resolved from public/ at runtime
+export const SITE_URL = "https://ryzeadvisory.co";
+
+/**
+ * Builds an absolute, HTTPS, normalized canonical URL for ryzeadvisory.co.
+ * - Always targets https://ryzeadvisory.co
+ * - Normalizes paths to have leading slash and strips trailing slashes (except root "/")
+ * - Strips query parameters and hash fragments
+ */
+export function buildCanonical(path: string = "/"): string {
+  if (!path || path === "/" || path === "") {
+    return `${SITE_URL}/`;
+  }
+  let clean = path.replace(/^https?:\/\/[^/]+/i, "");
+  clean = clean.split("?")[0].split("#")[0];
+  if (!clean.startsWith("/")) {
+    clean = `/${clean}`;
+  }
+  clean = clean.replace(/\/+$/, "");
+  return `${SITE_URL}${clean || "/"}`;
+}
 
 /** Clamp text to a max length on a word boundary, appending an ellipsis. */
 export function clamp(input: string, max: number): string {

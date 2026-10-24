@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Search, Copy, Check } from "lucide-react";
-import { buildTitle, buildDescription } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical } from "@/lib/seo";
 import { LIBRARY_PROMPTS } from "@/data/promptLibrary";
 
 export const Route = createFileRoute("/prompts")({
@@ -21,8 +21,9 @@ export const Route = createFileRoute("/prompts")({
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { property: "og:url", content: buildCanonical("/prompts") },
       ],
-      links: [{ rel: "canonical", href: "/prompts" }],
+      links: [{ rel: "canonical", href: buildCanonical("/prompts") }],
     };
   },
   component: PromptsPage,

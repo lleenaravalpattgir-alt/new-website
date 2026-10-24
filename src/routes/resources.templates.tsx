@@ -8,7 +8,10 @@ export const Route = createFileRoute("/resources/templates")({
     meta: [
       { title: "Downloadable Business Templates | Rise Advisory" },
       { name: "description", content: "Download practical business planning templates, 90-day constraint maps, and capital readiness checklists from Rise Advisory." },
+      { property: "og:title", content: "Downloadable Business Templates | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources/templates" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources/templates" }],
   }),
   component: TemplatesPage,
 });

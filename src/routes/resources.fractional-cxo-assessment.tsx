@@ -13,8 +13,9 @@ export const Route = createFileRoute("/resources/fractional-cxo-assessment")({
         content:
           "Take the Rise Advisory Fractional CXO Self-Assessment to diagnose your primary company bottleneck and discover which executive role your stage requires.",
       },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources/fractional-cxo-assessment" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/resources/fractional-cxo-assessment" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources/fractional-cxo-assessment" }],
   }),
   component: AssessmentPage,
 });

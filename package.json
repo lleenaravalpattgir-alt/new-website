@@ -11,7 +11,9 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "ci:check-sitemap": "node scripts/ci-check-sitemap.mjs",
-    "ci:e2e-redirects": "node scripts/e2e-template-redirects.mjs"
+    "ci:e2e-redirects": "node scripts/e2e-template-redirects.mjs",
+    "indexnow:submit": "node scripts/submit-indexnow.mjs",
+    "indexnow:sitemap": "node scripts/submit-indexnow.mjs --sitemap"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.2",

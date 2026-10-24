@@ -56,6 +56,7 @@ import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
+import { Route as ApiPublicIndexnowRouteImport } from './routes/api/public/indexnow'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 import { Route as BlogTopicTopicRouteImport } from './routes/blog.topic.$topic'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
@@ -306,6 +307,11 @@ const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
   path: '/solutions/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicIndexnowRoute = ApiPublicIndexnowRouteImport.update({
+  id: '/api/public/indexnow',
+  path: '/api/public/indexnow',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
   id: '/api/public/leads',
   path: '/api/public/leads',
@@ -405,6 +411,7 @@ export interface FileRoutesByFullPath {
   '/resources/': typeof ResourcesIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
+  '/api/public/indexnow': typeof ApiPublicIndexnowRoute
   '/api/public/leads': typeof ApiPublicLeadsRouteWithChildren
   '/blog/topic/$topic': typeof BlogTopicTopicRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -462,6 +469,7 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesIndexRoute
   '/services': typeof ServicesIndexRoute
   '/solutions': typeof SolutionsIndexRoute
+  '/api/public/indexnow': typeof ApiPublicIndexnowRoute
   '/api/public/leads': typeof ApiPublicLeadsRouteWithChildren
   '/blog/topic/$topic': typeof BlogTopicTopicRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -521,6 +529,7 @@ export interface FileRoutesById {
   '/resources/': typeof ResourcesIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
+  '/api/public/indexnow': typeof ApiPublicIndexnowRoute
   '/api/public/leads': typeof ApiPublicLeadsRouteWithChildren
   '/blog/topic/$topic': typeof BlogTopicTopicRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -581,6 +590,7 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/services/'
     | '/solutions/'
+    | '/api/public/indexnow'
     | '/api/public/leads'
     | '/blog/topic/$topic'
     | '/lovable/email/suppression'
@@ -638,6 +648,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/services'
     | '/solutions'
+    | '/api/public/indexnow'
     | '/api/public/leads'
     | '/blog/topic/$topic'
     | '/lovable/email/suppression'
@@ -696,6 +707,7 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/services/'
     | '/solutions/'
+    | '/api/public/indexnow'
     | '/api/public/leads'
     | '/blog/topic/$topic'
     | '/lovable/email/suppression'
@@ -751,6 +763,7 @@ export interface RootRouteChildren {
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
+  ApiPublicIndexnowRoute: typeof ApiPublicIndexnowRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRouteWithChildren
   BlogTopicTopicRoute: typeof BlogTopicTopicRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -1092,6 +1105,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolutionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/indexnow': {
+      id: '/api/public/indexnow'
+      path: '/api/public/indexnow'
+      fullPath: '/api/public/indexnow'
+      preLoaderRoute: typeof ApiPublicIndexnowRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/leads': {
       id: '/api/public/leads'
       path: '/api/public/leads'
@@ -1240,6 +1260,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesIndexRoute: ResourcesIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,
+  ApiPublicIndexnowRoute: ApiPublicIndexnowRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRouteWithChildren,
   BlogTopicTopicRoute: BlogTopicTopicRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,

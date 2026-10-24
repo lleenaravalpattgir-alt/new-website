@@ -9,7 +9,10 @@ export const Route = createFileRoute("/solutions/")({
     meta: [
       { title: "Solutions & Strategic Pillars | Rise Advisory" },
       { name: "description", content: "Explore the five strategic pillars of Rise Advisory: Growth & Revenue, Finance & Capital Readiness, Technology & AI, People & Operations, and Founder Performance." },
+      { property: "og:title", content: "Solutions & Strategic Pillars | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/solutions" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/solutions" }],
   }),
   component: SolutionsHubPage,
 });

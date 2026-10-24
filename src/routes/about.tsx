@@ -30,7 +30,9 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "Rise Advisory connects growing businesses with experienced part-time leaders (CXOs) across Sales, Finance, Technology, Operations, and Management. Grow your business without the high cost of full-time executives." },
       { property: "og:title", content: "About Rise Advisory — Strategy, Leadership, and Real Results" },
       { property: "og:description", content: "Experienced business leaders working inside your company to deliver real growth. Founded by Leena Raval in Ahmedabad, Gujarat." },
+      { property: "og:url", content: "https://ryzeadvisory.co/about" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/about" }],
   }),
   component: AboutPage,
 });

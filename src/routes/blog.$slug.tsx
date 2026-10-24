@@ -6,7 +6,7 @@ import { getPost, blogPosts, type BlogPost } from "@/data/blog";
 import { getArticleBySlug } from "@/data/insightsArticles";
 import { services } from "@/data/services";
 import { ArrowUpRight, ArrowRight, Calendar, Clock, User, Sparkles, HelpCircle } from "lucide-react";
-import { buildTitle, buildDescription, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
 import ogDefault from "@/assets/og-default.jpg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
@@ -31,6 +31,11 @@ export const Route = createFileRoute("/blog/$slug")({
     if (!post) throw notFound();
     return { post };
   },
+  headers: () => ({
+    "Cache-Control": "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800",
+    "CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+    "Cloudflare-CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+  }),
   head: ({ loaderData }) => {
     const p = loaderData?.post;
     if (!p) {
@@ -45,7 +50,7 @@ export const Route = createFileRoute("/blog/$slug")({
     const description = buildDescription(
       `${p.excerpt} Tactical AI Strategy and Agency Efficiency insights from RYZE Advisory.`,
     );
-    const url = `/blog/${p.slug}`;
+    const canonicalUrl = buildCanonical(`/blog/${p.slug}`);
     return {
       meta: [
         { title },
@@ -53,7 +58,7 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: url },
+        { property: "og:url", content: canonicalUrl },
         { property: "og:image", content: ogDefault },
         { property: "article:published_time", content: p.date },
         { property: "article:section", content: p.category },
@@ -62,7 +67,7 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: ogDefault },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
         {
           type: "application/ld+json",
@@ -76,8 +81,8 @@ export const Route = createFileRoute("/blog/$slug")({
             articleSection: p.category,
             keywords: [p.pillar, p.category, "AI Automation", "AI Strategy", "Agency Efficiency"].join(", "),
             image: ogDefault,
-            mainEntityOfPage: url,
-            author: { "@type": "Person", name: p.author, url: "/about/author" },
+            mainEntityOfPage: canonicalUrl,
+            author: { "@type": "Person", name: p.author, url: buildCanonical("/about/author") },
             publisher: {
               "@type": "Organization",
               name: ORG_NAME,

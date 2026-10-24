@@ -50,7 +50,10 @@ export const Route = createFileRoute("/business-funding")({
         content:
           "business loan Ahmedabad, business loan Gujarat, startup loan support Ahmedabad, collateral free business loan Gujarat, CGTMSE loan Ahmedabad, venture capital Gujarat, startup grant Ahmedabad, startup funding consultant",
       },
+      { property: "og:title", content: "Business Loan & Startup Funding Consultant Ahmedabad Gujarat | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/business-funding" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/business-funding" }],
     scripts: [
       {
         type: "application/ld+json",

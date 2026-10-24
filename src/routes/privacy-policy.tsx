@@ -7,7 +7,10 @@ export const Route = createFileRoute("/privacy-policy")({
     meta: [
       { title: "Privacy Policy | Rise Advisory" },
       { name: "description", content: "Privacy policy and data protection commitments of Rise Advisory." },
+      { property: "og:title", content: "Privacy Policy | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/privacy-policy" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/privacy-policy" }],
   }),
   component: PrivacyPolicyPage,
 });

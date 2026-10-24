@@ -13,8 +13,9 @@ export const Route = createFileRoute("/resources/cost-calculator")({
         content:
           "Calculate and compare the all-in cost of hiring full-time C-suite executives versus engaging fractional CXOs with Rise Advisory.",
       },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources/cost-calculator" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/resources/cost-calculator" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources/cost-calculator" }],
   }),
   component: CostCalculatorPage,
 });

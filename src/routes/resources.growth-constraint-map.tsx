@@ -13,8 +13,9 @@ export const Route = createFileRoute("/resources/growth-constraint-map")({
         content:
           "Audit operational bottlenecks, evaluate constraint severity across Sales, Finance, Tech, and Operations, and generate a customized 90-day execution sprint roadmap.",
       },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources/growth-constraint-map" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/resources/growth-constraint-map" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources/growth-constraint-map" }],
   }),
   component: ConstraintMapPage,
 });

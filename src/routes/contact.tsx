@@ -11,7 +11,10 @@ export const Route = createFileRoute("/contact")({
     meta: [
       { title: "Contact Rise Advisory | Book a Growth Diagnostic" },
       { name: "description", content: "Connect with Rise Advisory. Schedule your 90-minute Growth & Leadership Diagnostic at E 1119 Ganesh Glory 11, Jagatpur, Gota, Ahmedabad, Gujarat 382470." },
+      { property: "og:title", content: "Contact Rise Advisory | Book a Growth Diagnostic" },
+      { property: "og:url", content: "https://ryzeadvisory.co/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/contact" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -19,7 +22,7 @@ export const Route = createFileRoute("/contact")({
           "@context": "https://schema.org",
           "@type": "ProfessionalService",
           name: "Rise Advisory",
-          url: "https://riseadvisory.co/contact",
+          url: "https://ryzeadvisory.co/contact",
           telephone: "+919313967971",
           email: "hello@riseadvisory.co",
           address: {

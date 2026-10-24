@@ -19,7 +19,10 @@ export const Route = createFileRoute("/fractional-leaders/")({
         content:
           "Access vetted fractional executives across CFO, CMO, CTO, COO, CHRO, CRO, CAIO, and CPO disciplines. Senior leadership without full-time C-suite overhead.",
       },
+      { property: "og:title", content: "Fractional Leaders Catalogue | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/fractional-leaders" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/fractional-leaders" }],
   }),
   component: FractionalLeadersHubPage,
 });

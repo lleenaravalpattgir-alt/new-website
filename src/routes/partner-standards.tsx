@@ -7,7 +7,10 @@ export const Route = createFileRoute("/partner-standards")({
     meta: [
       { title: "Partner & Expert Standards | Rise Advisory" },
       { name: "description", content: "The vetting standards, operating model, code of conduct, and quality assurance framework for the Rise Advisory expert network." },
+      { property: "og:title", content: "Partner & Expert Standards | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/partner-standards" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/partner-standards" }],
   }),
   component: PartnerStandardsPage,
 });

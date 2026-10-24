@@ -25,8 +25,9 @@ export const Route = createFileRoute("/blog/")({
         property: "og:description",
         content: "Sharp takes on strategy and execution across five core business scale pillars.",
       },
+      { property: "og:url", content: "https://ryzeadvisory.co/blog" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/blog" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/blog" }],
   }),
   component: BlogIndex,
 });

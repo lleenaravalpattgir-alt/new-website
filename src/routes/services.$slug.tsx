@@ -9,7 +9,7 @@ import { EcosystemGrid } from "@/components/site/EcosystemGrid";
 import { getService, services, type Service } from "@/data/services";
 import { blogPosts } from "@/data/blog";
 import { CheckCircle2, ArrowUpRight, AlertTriangle, BookOpen } from "lucide-react";
-import { buildTitle, buildDescription, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
 import ogDefault from "@/assets/og-default.jpg";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
@@ -97,6 +97,11 @@ export const Route = createFileRoute("/services/$slug")({
     if (!service) throw notFound();
     return { service };
   },
+  headers: () => ({
+    "Cache-Control": "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800",
+    "CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+    "Cloudflare-CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+  }),
   head: ({ loaderData }) => {
     const s = loaderData?.service;
     if (!s) {
@@ -112,7 +117,7 @@ export const Route = createFileRoute("/services/$slug")({
     const description = buildDescription(
       `${s.tagline}. ${copy.metaBlurb} Book a free strategy call.`,
     );
-    const url = `/services/${s.slug}`;
+    const canonicalUrl = buildCanonical(`/services/${s.slug}`);
 
     return {
       meta: [
@@ -121,14 +126,14 @@ export const Route = createFileRoute("/services/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: url },
+        { property: "og:url", content: canonicalUrl },
         { property: "og:image", content: ogDefault },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: ogDefault },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [{
         type: "application/ld+json",
         children: JSON.stringify({
@@ -137,7 +142,7 @@ export const Route = createFileRoute("/services/$slug")({
           name: s.title,
           serviceType: s.category,
           description,
-          url,
+          url: canonicalUrl,
           provider: {
             "@type": "Organization",
             name: ORG_NAME,

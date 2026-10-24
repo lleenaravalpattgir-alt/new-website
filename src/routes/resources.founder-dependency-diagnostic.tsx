@@ -13,8 +13,9 @@ export const Route = createFileRoute("/resources/founder-dependency-diagnostic")
         content:
           "Calculate your operational Delegation Index across key business decisions and discover how to de-bottleneck the founder with Rise Advisory.",
       },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources/founder-dependency-diagnostic" },
     ],
-    links: [{ rel: "canonical", href: "https://riseadvisory.co/resources/founder-dependency-diagnostic" }],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources/founder-dependency-diagnostic" }],
   }),
   component: FounderDependencyPage,
 });

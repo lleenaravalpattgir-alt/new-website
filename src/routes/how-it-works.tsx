@@ -9,7 +9,10 @@ export const Route = createFileRoute("/how-it-works")({
     meta: [
       { title: "How It Works — The Six-Stage Rise Delivery Method | Rise Advisory" },
       { name: "description", content: "Learn how Rise Advisory translates business strategy into measurable 90-day execution sprints through our six-stage delivery method." },
+      { property: "og:title", content: "How It Works — The Six-Stage Rise Delivery Method | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/how-it-works" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/how-it-works" }],
   }),
   component: HowItWorksPage,
 });

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { StickyCTA } from "@/components/site/StickyCTA";
-import { buildTitle, buildDescription, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
 import authorHeadshot from "@/assets/author-leena-raval.jpg";
 import { Linkedin, Globe, Mail, Sparkles, MapPin, ArrowRight, CheckCircle2, ShieldCheck, Award, Instagram } from "lucide-react";
 import { XIcon, PinterestIcon } from "@/components/site/SocialLinks";
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/about/author")({
     const description = buildDescription(
       "Leena Raval is the founder of Rise Advisory and a recognized growth advisor specializing in fractional CXO leadership, founder constraint resolution, and multi-disciplinary operational scale."
     );
-    const url = "/about/author";
+    const canonicalUrl = buildCanonical("/about/author");
     return {
       meta: [
         { title },
@@ -20,14 +20,14 @@ export const Route = createFileRoute("/about/author")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "profile" },
-        { property: "og:url", content: url },
+        { property: "og:url", content: canonicalUrl },
         { property: "og:image", content: authorHeadshot },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: authorHeadshot },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [{
         type: "application/ld+json",
         children: JSON.stringify({

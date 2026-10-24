@@ -9,7 +9,10 @@ export const Route = createFileRoute("/industries/")({
     meta: [
       { title: "Industry Solutions & Sector Pods | Rise Advisory" },
       { name: "description", content: "Specialized fractional executive pods for Startups, SMEs & Family Businesses, FMCG/D2C, SaaS & Tech, Professional Services, and Manufacturing." },
+      { property: "og:title", content: "Industry Solutions & Sector Pods | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/industries" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/industries" }],
   }),
   component: IndustriesHubPage,
 });

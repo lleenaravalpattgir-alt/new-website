@@ -4,8 +4,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { LeadForm } from "@/components/site/LeadForm";
 import { CTAButton } from "@/components/site/CTAButton";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
-import { topicBySlug, postsForTopic, servicesForTopic, topics } from "@/data/blogTopics";
-import { buildTitle, buildDescription, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
 import { ArrowUpRight } from "lucide-react";
 import { track } from "@/lib/track";
 import type { Service } from "@/data/services";
@@ -33,17 +32,17 @@ export const Route = createFileRoute("/services/category/$category")({
     const description = buildDescription(
       `${t.blurb} RYZE Advisory ${t.label} services with the top 10 insights from our team.`,
     );
-    const url = `/services/category/${t.slug}`;
+    const canonicalUrl = buildCanonical(`/services/category/${t.slug}`);
     return {
       meta: [
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { property: "og:url", content: url },
+        { property: "og:url", content: canonicalUrl },
         { property: "og:type", content: "website" },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
         {
           type: "application/ld+json",
@@ -52,7 +51,7 @@ export const Route = createFileRoute("/services/category/$category")({
             "@type": "CollectionPage",
             name: `${t.label} — RYZE Advisory Services & Insights`,
             description,
-            url,
+            url: canonicalUrl,
             publisher: { "@type": "Organization", name: ORG_NAME, logo: { "@type": "ImageObject", url: ORG_LOGO } },
           }),
         },

@@ -10,7 +10,9 @@ export const Route = createFileRoute("/case-studies/")({
       { title: "Results & Structured Case Studies | Rise Advisory" },
       { name: "description", content: "Documented business turnarounds, working capital optimization, CAC reduction, and enterprise scaling milestones from Rise Advisory." },
       { property: "og:title", content: "Results & Case Studies | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/case-studies" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/case-studies" }],
   }),
   component: CaseStudiesIndexPage,
 });

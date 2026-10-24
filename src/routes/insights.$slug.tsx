@@ -30,7 +30,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { buildTitle, buildDescription, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
 
 export const Route = createFileRoute("/insights/$slug")({
   loader: ({ params }) => {
@@ -90,6 +90,11 @@ export const Route = createFileRoute("/insights/$slug")({
     const related = getRelatedArticles(article.slug, article.category, 3);
     return { article, related };
   },
+  headers: () => ({
+    "Cache-Control": "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800",
+    "CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+    "Cloudflare-CDN-Cache-Control": "max-age=86400, stale-while-revalidate=604800",
+  }),
   head: ({ loaderData }) => {
     const a = loaderData?.article;
     if (!a) {
@@ -106,7 +111,7 @@ export const Route = createFileRoute("/insights/$slug")({
 
     const pageTitle = buildTitle(a.seoTitle || a.title);
     const description = buildDescription(a.metaDescription || a.excerpt);
-    const canonicalUrl = `https://riseadvisory.co/insights/${a.slug}`;
+    const canonicalUrl = buildCanonical(`/insights/${a.slug}`);
 
     return {
       meta: [
@@ -137,13 +142,13 @@ export const Route = createFileRoute("/insights/$slug")({
             dateModified: a.updatedDate || a.publishedDate,
             articleSection: a.category,
             keywords: [a.primaryKeyword, ...a.secondaryKeywords].join(", "),
-            image: "https://riseadvisory.co/logo.png",
+            image: "https://ryzeadvisory.co/logo.png",
             mainEntityOfPage: canonicalUrl,
             author: {
               "@type": "Person",
               name: a.author,
               jobTitle: a.authorRole,
-              url: "https://riseadvisory.co/about/author",
+              url: buildCanonical("/about/author"),
             },
             publisher: {
               "@type": "Organization",

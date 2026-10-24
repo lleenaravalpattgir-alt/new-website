@@ -21,7 +21,10 @@ export const Route = createFileRoute("/resources/")({
     meta: [
       { title: "Resources & Executive Toolkits | Rise Advisory" },
       { name: "description", content: "Interactive business calculators, diagnostics, capital-readiness checklists, and downloadable toolkits developed by Rise Advisory." },
+      { property: "og:title", content: "Resources & Executive Toolkits | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/resources" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/resources" }],
   }),
   component: ResourcesHubPage,
 });

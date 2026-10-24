@@ -6,7 +6,7 @@ import { CTAButton } from "@/components/site/CTAButton";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { topicBySlug, postsForTopic, topics } from "@/data/blogTopics";
 import type { BlogPost } from "@/data/blog";
-import { buildTitle, buildDescription, ORG_NAME, ORG_LOGO } from "@/lib/seo";
+import { buildTitle, buildDescription, buildCanonical, ORG_NAME, ORG_LOGO } from "@/lib/seo";
 import { track } from "@/lib/track";
 
 const PAGE_SIZE = 9;
@@ -27,13 +27,13 @@ export const Route = createFileRoute("/blog/topic/$topic")({
     if (!t) return { meta: [{ title: buildTitle("Insights Topic") }] };
     const title = buildTitle(`${t.label} — Insights`);
     const description = buildDescription(`${t.blurb} Curated insights from RYZE Advisory.`);
-    const url = `/blog/topic/${t.slug}`;
+    const canonicalUrl = buildCanonical(`/blog/topic/${t.slug}`);
     const collection = {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       name: `${t.label} — RYZE Advisory Insights`,
       description,
-      url,
+      url: canonicalUrl,
       publisher: { "@type": "Organization", name: ORG_NAME, logo: { "@type": "ImageObject", url: ORG_LOGO } },
     };
     return {
@@ -42,10 +42,10 @@ export const Route = createFileRoute("/blog/topic/$topic")({
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { property: "og:url", content: url },
+        { property: "og:url", content: canonicalUrl },
         { property: "og:type", content: "website" },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(collection) },
       ],

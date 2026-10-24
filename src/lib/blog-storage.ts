@@ -188,6 +188,19 @@ export async function saveArticle(
     // Supabase table might not exist yet; gracefully ignore
   }
 
+  // Notify IndexNow if article is published
+  if (fullArticle.status === "published" && typeof window !== "undefined") {
+    try {
+      fetch("/api/public/indexnow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: `https://ryzeadvisory.co/insights/${fullArticle.slug}` }),
+      }).catch(() => undefined);
+    } catch {
+      // Best-effort notification
+    }
+  }
+
   return fullArticle;
 }
 
@@ -204,6 +217,12 @@ export async function deleteArticle(slug: string): Promise<boolean> {
       window.dispatchEvent(
         new CustomEvent("ryze-articles-updated", { detail: { slug, deleted: true } }),
       );
+      // Notify IndexNow that URL was removed
+      fetch("/api/public/indexnow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: `https://ryzeadvisory.co/insights/${slug}` }),
+      }).catch(() => undefined);
     } catch (e) {
       console.error("[blog-storage] Failed to save deletion", e);
     }

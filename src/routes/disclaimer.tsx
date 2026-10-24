@@ -7,7 +7,10 @@ export const Route = createFileRoute("/disclaimer")({
     meta: [
       { title: "Regulatory & Service Disclaimer | Rise Advisory" },
       { name: "description", content: "Important regulatory disclosures, professional scope, and performance disclaimers for Rise Advisory." },
+      { property: "og:title", content: "Regulatory & Service Disclaimer | Rise Advisory" },
+      { property: "og:url", content: "https://ryzeadvisory.co/disclaimer" },
     ],
+    links: [{ rel: "canonical", href: "https://ryzeadvisory.co/disclaimer" }],
   }),
   component: DisclaimerPage,
 });
