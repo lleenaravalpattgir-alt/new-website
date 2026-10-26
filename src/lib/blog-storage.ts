@@ -6,7 +6,7 @@ import {
 } from "@/data/insightsArticles";
 import { supabase } from "@/integrations/supabase/client";
 
-const STORAGE_KEY = "ryze_advisory_insights_articles_v2";
+const STORAGE_KEY = "ryze_advisory_insights_articles_v3";
 
 /**
  * In-memory cache for fast, synchronized access across components.
@@ -30,6 +30,22 @@ export function getStoredArticles(): InsightsArticle[] {
     if (raw) {
       const parsed: InsightsArticle[] = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
+        // Ensure any new default seed articles are seamlessly merged in
+        const existingSlugs = new Set(parsed.map((a) => a.slug));
+        let changed = false;
+        for (const def of defaultArticles) {
+          if (!existingSlugs.has(def.slug)) {
+            parsed.unshift(def);
+            changed = true;
+          }
+        }
+        if (changed) {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+          } catch {
+            // Ignore storage quota errors
+          }
+        }
         memoryCache = parsed;
         return parsed;
       }
